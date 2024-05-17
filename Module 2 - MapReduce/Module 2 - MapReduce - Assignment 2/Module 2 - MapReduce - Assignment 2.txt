@@ -1,0 +1,89 @@
+import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.fs.*;
+import org.apache.hadoop.mapreduce.lib.input.*;
+import org.apache.hadoop.mapreduce.lib.output.*;
+
+public class LDCalls
+	{
+		public static class MapClass extends Mapper<LongWritable,Text,Text,IntWritable>
+			{
+				Text PhoneNumber = new Text();
+				IntWritable DurationInMinutes = new IntWritable();
+
+		public void map(LongWritable key, Text value, Context context)
+			{	    	  
+	         	try{
+	            		String[] parts = value.toString().split(",");
+						if (parts[4].equals("1")) {
+							PhoneNumber.set(parts[0]);
+							String CallStartTime = parts[2];
+							String CallEndTime = parts[3];
+							long Duration = toMillis(CallEndTime) - toMillis(CallStartTime);
+							DurationInMinutes.set((int)(Duration / (60 * 1000)));
+							context.write(PhoneNumber,DurationInMinutes);
+						}
+	         	}
+			
+				catch(Exception e)
+				{
+					System.out.println(e.getMessage());
+				}
+			}
+		private long toMillis(String date)
+			{
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date DateFrm = null;
+				try {
+					DateFrm = format.parse(date);
+				} 
+				catch (ParseException e)
+				{
+					e.printStackTrace();
+				}
+				return DateFrm.getTime();
+			}
+				
+	public static class ReduceClass extends Reducer<Text,IntWritable,Text,IntWritable>
+		{
+			private IntWritable result = new IntWritable();
+	
+			public void reduce(Text key, Iterable<IntWritable> values,Context context) throws IOException, InterruptedException
+				{
+					long Sum = 0;
+					for (IntWritable val : values)
+						{
+							Sum += val.get();
+						}
+					if (Sum > 60)
+						{
+							result.set((int) Sum);
+							context.write(key, result);
+						}
+				}
+		}
+
+			public static void main(String[] args) throws Exception
+				{
+					Configuration conf = new Configuration();
+					conf.set("mapreduce.output.textoutputformat.separator",",");
+					Job job = Job.getInstance(conf, "LDCalls");
+					job.setJarByClass(LDCalls.class);
+					job.setMapperClass(MapClass.class);
+					job.setReducerClass(ReduceClass.class);
+					job.setOutputKeyClass(Text.class);
+					job.setOutputValueClass(IntWritable.class);
+					job.setInputFormatClass(TextInputFormat.class);
+					job.setOutputFormatClass(TextOutputFormat.class);
+					FileInputFormat.addInputPath(job, new Path(args[0]));
+					FileOutputFormat.setOutputPath(job, new Path(args[1]));
+					System.exit(job.waitForCompletion(true) ? 0 : 1);
+				}
+			}
+	}

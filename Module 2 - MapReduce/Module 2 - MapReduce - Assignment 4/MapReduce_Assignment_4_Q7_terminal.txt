@@ -1,0 +1,89 @@
+hadoop@intellipaat-hadoop:~$ jar -tvf MostPopularMaleName1945.jar
+    25 Fri May 17 22:22:20 IST 2024 META-INF/MANIFEST.MF
+   686 Thu May 16 22:07:02 IST 2024 .classpath
+   381 Thu May 16 21:59:50 IST 2024 .project
+  2892 Fri May 17 22:20:48 IST 2024 MostPopularMaleName1945$IntSumReducer.class
+  2580 Fri May 17 22:20:48 IST 2024 MostPopularMaleName1945$TokenizerMapper.class
+  1753 Fri May 17 22:20:48 IST 2024 MostPopularMaleName1945.class
+hadoop@intellipaat-hadoop:~$ hadoop jar MostPopularMaleName1945.jar MostPopularMaleName1945 /rajat/NationalNames.csv /rajat/Output15
+2024-05-17 22:23:36,424 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2024-05-17 22:23:37,442 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2024-05-17 22:23:37,522 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1715961594632_0003
+2024-05-17 22:23:38,375 INFO input.FileInputFormat: Total input files to process : 1
+2024-05-17 22:23:39,137 INFO mapreduce.JobSubmitter: number of splits:1
+2024-05-17 22:23:40,243 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1715961594632_0003
+2024-05-17 22:23:40,243 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2024-05-17 22:23:41,061 INFO conf.Configuration: resource-types.xml not found
+2024-05-17 22:23:41,064 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2024-05-17 22:23:41,467 INFO impl.YarnClientImpl: Submitted application application_1715961594632_0003
+2024-05-17 22:23:41,615 INFO mapreduce.Job: The url to track the job: http://intellipaat-hadoop:8088/proxy/application_1715961594632_0003/
+2024-05-17 22:23:41,618 INFO mapreduce.Job: Running job: job_1715961594632_0003
+2024-05-17 22:23:57,499 INFO mapreduce.Job: Job job_1715961594632_0003 running in uber mode : false
+2024-05-17 22:23:57,506 INFO mapreduce.Job:  map 0% reduce 0%
+2024-05-17 22:24:10,999 INFO mapreduce.Job:  map 100% reduce 0%
+2024-05-17 22:24:22,365 INFO mapreduce.Job:  map 100% reduce 100%
+2024-05-17 22:24:22,405 INFO mapreduce.Job: Job job_1715961594632_0003 completed successfully
+2024-05-17 22:24:22,899 INFO mapreduce.Job: Counters: 54
+	File System Counters
+		FILE: Number of bytes read=48817
+		FILE: Number of bytes written=625943
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=44350628
+		HDFS: Number of bytes written=12
+		HDFS: Number of read operations=8
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+		HDFS: Number of bytes read erasure-coded=0
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=11330
+		Total time spent by all reduces in occupied slots (ms)=8346
+		Total time spent by all map tasks (ms)=11330
+		Total time spent by all reduce tasks (ms)=8346
+		Total vcore-milliseconds taken by all map tasks=11330
+		Total vcore-milliseconds taken by all reduce tasks=8346
+		Total megabyte-milliseconds taken by all map tasks=11601920
+		Total megabyte-milliseconds taken by all reduce tasks=8546304
+	Map-Reduce Framework
+		Map input records=1825434
+		Map output records=3782
+		Map output bytes=41247
+		Map output materialized bytes=48817
+		Input split bytes=110
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=3782
+		Reduce shuffle bytes=48817
+		Reduce input records=3782
+		Reduce output records=1
+		Spilled Records=7564
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=356
+		CPU time spent (ms)=8620
+		Physical memory (bytes) snapshot=604635136
+		Virtual memory (bytes) snapshot=5451530240
+		Total committed heap usage (bytes)=475004928
+		Peak Map Physical memory (bytes)=413749248
+		Peak Map Virtual memory (bytes)=2722136064
+		Peak Reduce Physical memory (bytes)=190885888
+		Peak Reduce Virtual memory (bytes)=2729394176
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=44350518
+	File Output Format Counters 
+		Bytes Written=12
+hadoop@intellipaat-hadoop:~$ hdfs dfs -cat /rajat/Output15/part-r-00000
+James	74450
+hadoop@intellipaat-hadoop:~$ 
