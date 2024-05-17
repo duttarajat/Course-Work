@@ -1,0 +1,105 @@
+hadoop@intellipaat-hadoop:~$ start-all.sh
+WARNING: Attempting to start all Apache Hadoop daemons as hadoop in 10 seconds.
+WARNING: This is not a recommended production deployment configuration.
+WARNING: Use CTRL-C to abort.
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [intellipaat-hadoop]
+Starting resourcemanager
+Starting nodemanagers
+hadoop@intellipaat-hadoop:~$ jps
+42945 ResourceManager
+42466 DataNode
+43797 Jps
+42344 NameNode
+4058 org.eclipse.equinox.launcher_1.6.700.v20240213-1244.jar
+43067 NodeManager
+42639 SecondaryNameNode
+hadoop@intellipaat-hadoop:~$ jar -tvf TotalCount.jar
+    25 Fri May 17 21:22:46 IST 2024 META-INF/MANIFEST.MF
+   686 Thu May 16 22:07:02 IST 2024 .classpath
+   381 Thu May 16 21:59:50 IST 2024 .project
+  2341 Fri May 17 21:21:48 IST 2024 TotalCount$IntSumReducer.class
+  2469 Fri May 17 21:21:48 IST 2024 TotalCount$TokenizerMapper.class
+  1717 Fri May 17 21:21:48 IST 2024 TotalCount.class
+hadoop@intellipaat-hadoop:~$ hadoop jar TotalCount.jar TotalCount /rajat/NationalNames.csv /rajat/Output13
+2024-05-17 21:38:41,856 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+2024-05-17 21:38:43,297 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2024-05-17 21:38:43,422 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/hadoop/.staging/job_1715961594632_0001
+2024-05-17 21:38:44,912 INFO input.FileInputFormat: Total input files to process : 1
+2024-05-17 21:38:45,286 INFO mapreduce.JobSubmitter: number of splits:1
+2024-05-17 21:38:46,156 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1715961594632_0001
+2024-05-17 21:38:46,156 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2024-05-17 21:38:46,814 INFO conf.Configuration: resource-types.xml not found
+2024-05-17 21:38:46,816 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2024-05-17 21:38:47,836 INFO impl.YarnClientImpl: Submitted application application_1715961594632_0001
+2024-05-17 21:38:48,127 INFO mapreduce.Job: The url to track the job: http://intellipaat-hadoop:8088/proxy/application_1715961594632_0001/
+2024-05-17 21:38:48,129 INFO mapreduce.Job: Running job: job_1715961594632_0001
+2024-05-17 21:39:08,995 INFO mapreduce.Job: Job job_1715961594632_0001 running in uber mode : false
+2024-05-17 21:39:08,997 INFO mapreduce.Job:  map 0% reduce 0%
+2024-05-17 21:39:29,719 INFO mapreduce.Job:  map 67% reduce 0%
+2024-05-17 21:39:30,760 INFO mapreduce.Job:  map 100% reduce 0%
+2024-05-17 21:39:43,154 INFO mapreduce.Job:  map 100% reduce 100%
+2024-05-17 21:39:45,233 INFO mapreduce.Job: Job job_1715961594632_0001 completed successfully
+2024-05-17 21:39:45,651 INFO mapreduce.Job: Counters: 54
+	File System Counters
+		FILE: Number of bytes read=1270537
+		FILE: Number of bytes written=3069675
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=44350628
+		HDFS: Number of bytes written=1017047
+		HDFS: Number of read operations=8
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+		HDFS: Number of bytes read erasure-coded=0
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=18876
+		Total time spent by all reduces in occupied slots (ms)=10046
+		Total time spent by all map tasks (ms)=18876
+		Total time spent by all reduce tasks (ms)=10046
+		Total vcore-milliseconds taken by all map tasks=18876
+		Total vcore-milliseconds taken by all reduce tasks=10046
+		Total megabyte-milliseconds taken by all map tasks=19329024
+		Total megabyte-milliseconds taken by all reduce tasks=10287104
+	Map-Reduce Framework
+		Map input records=1825434
+		Map output records=1825433
+		Map output bytes=20397563
+		Map output materialized bytes=1270537
+		Input split bytes=110
+		Combine input records=1825433
+		Combine output records=93889
+		Reduce input groups=93889
+		Reduce shuffle bytes=1270537
+		Reduce input records=93889
+		Reduce output records=93889
+		Spilled Records=187778
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=401
+		CPU time spent (ms)=21750
+		Physical memory (bytes) snapshot=546324480
+		Virtual memory (bytes) snapshot=5455904768
+		Total committed heap usage (bytes)=425721856
+		Peak Map Physical memory (bytes)=336687104
+		Peak Map Virtual memory (bytes)=2724184064
+		Peak Reduce Physical memory (bytes)=209637376
+		Peak Reduce Virtual memory (bytes)=2731720704
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=44350518
+	File Output Format Counters 
+		Bytes Written=1017047
+hadoop@intellipaat-hadoop:~$ 
