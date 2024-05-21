@@ -1,0 +1,731 @@
+ubh01@ubh01:~$ start-dfs.sh
+24/05/19 22:13:54 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-namenode-ubh01.out
+localhost: starting datanode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-datanode-ubh01.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-secondarynamenode-ubh01.out
+24/05/19 22:14:11 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+ubh01@ubh01:~$ start-yarn.sh
+starting yarn daemons
+starting resourcemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-resourcemanager-ubh01.out
+localhost: starting nodemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-nodemanager-ubh01.out
+ubh01@ubh01:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/hive-common-2.3.2.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> create database Demo;
+OK
+Time taken: 0.355 seconds
+hive> use Demo;
+OK
+Time taken: 0.026 seconds
+hive> create table Suicides (State string, Year int, Type_Code string, Type string, Gender string, Age_Group string, Total int) row format delimited fields terminated by ',' tblproperties("skip.header.line.count" = "1");
+OK
+Time taken: 0.824 seconds
+hive> load data local inpath 'Suicides.csv' into table Suicides;
+Loading data to table demo.suicides
+OK
+Time taken: 2.778 seconds
+hive> select Type, count(Type) as Count from Suicides where Gender = 'Female' group by Type order by Count desc limit 1;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521072910_c38a304e-18bc-49d1-b087-dcb148c67e5a
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0010, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0010/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0010
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 07:29:20,819 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 07:29:27,437 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.05 sec
+2024-05-21 07:29:35,055 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.16 sec
+MapReduce Total cumulative CPU time: 5 seconds 160 msec
+Ended Job = job_1716137060134_0010
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0011, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0011/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0011
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 07:29:47,189 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 07:29:52,725 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.26 sec
+2024-05-21 07:30:00,297 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.33 sec
+MapReduce Total cumulative CPU time: 3 seconds 330 msec
+Ended Job = job_1716137060134_0011
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.16 sec   HDFS Read: 15414529 HDFS Write: 2980 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.33 sec   HDFS Read: 8616 HDFS Write: 128 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 490 msec
+OK
+Others (Please Specify)	3512
+Time taken: 52.277 seconds, Fetched: 1 row(s)
+hive> with cause_counts as (select State, Type, SUM(Total) AS total_count from Suicides where Gender = 'Male' group by State, Type),
+    > ranked_causes as (select State, Type, total_count, row_number() over (partition by State order by total_count desc) as rank from cause_counts)
+    > select State, Type, total_count from ranked_causes where rank=1 order by total_count desc;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521084036_ff9eb293-a053-481a-9c8b-619f0c9f8cb6
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0038, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0038/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0038
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 08:40:54,981 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 08:41:12,922 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 15.84 sec
+2024-05-21 08:41:20,573 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 18.99 sec
+MapReduce Total cumulative CPU time: 18 seconds 990 msec
+Ended Job = job_1716137060134_0038
+Launching Job 2 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0039, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0039/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0039
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 08:41:33,979 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 08:41:40,400 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 2.13 sec
+2024-05-21 08:41:49,077 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 5.97 sec
+MapReduce Total cumulative CPU time: 5 seconds 970 msec
+Ended Job = job_1716137060134_0039
+Launching Job 3 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0040, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0040/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0040
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 1
+2024-05-21 08:42:01,115 Stage-3 map = 0%,  reduce = 0%
+2024-05-21 08:42:07,565 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 1.52 sec
+2024-05-21 08:42:14,050 Stage-3 map = 100%,  reduce = 100%, Cumulative CPU 3.76 sec
+MapReduce Total cumulative CPU time: 3 seconds 760 msec
+Ended Job = job_1716137060134_0040
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 18.99 sec   HDFS Read: 15414950 HDFS Write: 126519 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 5.97 sec   HDFS Read: 134321 HDFS Write: 1616 SUCCESS
+Stage-Stage-3: Map: 1  Reduce: 1   Cumulative CPU: 3.76 sec   HDFS Read: 7233 HDFS Write: 1497 SUCCESS
+Total MapReduce CPU Time Spent: 28 seconds 720 msec
+OK
+Total (All India)	Married	665007
+Total (States)	Married	653139
+Maharashtra	Married	92820
+Andhra Pradesh	Married	83425
+Tamil Nadu	Married	73195
+Karnataka	Married	70355
+West Bengal	Married	65229
+Kerala	Married	62424
+Madhya Pradesh	Married	33315
+Chhattisgarh	Married	29606
+Gujarat	Married	28453
+Rajasthan	Married	23894
+Odisha	Married	20868
+Uttar Pradesh	Married	16419
+Haryana	Married	15915
+Assam	Married	13706
+Total (Uts)	Married	11868
+Delhi (Ut)	Married	7029
+Punjab	Married	4270
+Jharkhand	Married	4100
+Tripura	Married	3409
+Puducherry	Married	3303
+Bihar	Married	3240
+Himachal Pradesh	Married	2334
+Goa	By Hanging	1432
+Uttarakhand	Married	1374
+Jammu & Kashmir	Married	999
+A & N Islands	By Hanging	929
+Sikkim	By Hanging	735
+Arunachal Pradesh	Married	705
+Mizoram	By Hanging	523
+Meghalaya	By Hanging	520
+Chandigarh	Married	438
+D & N Haveli	By Hanging	309
+Manipur	Causes Not known	198
+Nagaland	By Hanging	150
+Daman & Diu	Causes Not known	97
+Lakshadweep	Married	4
+Time taken: 99.96 seconds, Fetched: 38 row(s)
+hive> with cause_counts as (select Age_group, Gender, Type, sum(Total) as total_count from Suicides group by Age_group, Gender, Type),
+    > ranked_causes as (select Age_group, Gender, Type, total_count, row_number() over (partition by Age_group, Gender order by total_count desc) as rank from cause_counts)
+    > select Age_group, Gender, Type from ranked_causes where rank = 1;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521085404_b8af7ee1-db48-408b-83f3-fcb13ccda071
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0043, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0043/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0043
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 08:54:11,568 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 08:54:17,966 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.77 sec
+2024-05-21 08:54:25,533 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.3 sec
+MapReduce Total cumulative CPU time: 5 seconds 300 msec
+Ended Job = job_1716137060134_0043
+Launching Job 2 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0044, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0044/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0044
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 08:54:39,060 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 08:54:47,772 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.89 sec
+2024-05-21 08:55:00,084 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 6.07 sec
+MapReduce Total cumulative CPU time: 6 seconds 70 msec
+Ended Job = job_1716137060134_0044
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.3 sec   HDFS Read: 15414781 HDFS Write: 31948 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 6.07 sec   HDFS Read: 40874 HDFS Write: 559 SUCCESS
+Total MapReduce CPU Time Spent: 11 seconds 370 msec
+OK
+0-100+	Female	Married
+0-100+	Male	Married
+0-14	Female	Student
+0-14	Male	Others (Please Specify)
+15-29	Female	House Wife
+15-29	Male	Others (Please Specify)
+30-44	Female	House Wife
+30-44	Male	Others (Please Specify)
+45-59	Female	House Wife
+45-59	Male	Others (Please Specify)
+60+	Female	House Wife
+60+	Male	Others (Please Specify)
+Time taken: 56.579 seconds, Fetched: 12 row(s)
+hive> select State, Year, sum(Total) from Suicides group by State, Year order by State, Year;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521085752_be64b192-b693-4c4a-b9d0-964e639872a2
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0047, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0047/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0047
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 08:58:01,386 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 08:58:07,848 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.66 sec
+2024-05-21 08:58:16,501 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.43 sec
+MapReduce Total cumulative CPU time: 6 seconds 430 msec
+Ended Job = job_1716137060134_0047
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716137060134_0048, Tracking URL = http://ubh01:8088/proxy/application_1716137060134_0048/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716137060134_0048
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 08:58:29,922 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 08:58:36,452 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.69 sec
+2024-05-21 08:58:43,898 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 4.31 sec
+MapReduce Total cumulative CPU time: 4 seconds 310 msec
+Ended Job = job_1716137060134_0048
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.43 sec   HDFS Read: 15414073 HDFS Write: 15711 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 4.31 sec   HDFS Read: 21835 HDFS Write: 15318 SUCCESS
+Total MapReduce CPU Time Spent: 10 seconds 740 msec
+OK
+A & N Islands	2001	645
+A & N Islands	2002	720
+A & N Islands	2003	565
+A & N Islands	2004	610
+A & N Islands	2005	695
+A & N Islands	2006	665
+A & N Islands	2007	775
+A & N Islands	2008	714
+A & N Islands	2009	655
+A & N Islands	2010	780
+A & N Islands	2011	680
+A & N Islands	2012	605
+Andhra Pradesh	2001	52610
+Andhra Pradesh	2002	58465
+Andhra Pradesh	2003	57045
+Andhra Pradesh	2004	67630
+Andhra Pradesh	2005	67210
+Andhra Pradesh	2006	66380
+Andhra Pradesh	2007	74410
+Andhra Pradesh	2008	71729
+Andhra Pradesh	2009	72500
+Andhra Pradesh	2010	79505
+Andhra Pradesh	2011	75385
+Andhra Pradesh	2012	71190
+Arunachal Pradesh	2001	555
+Arunachal Pradesh	2002	570
+Arunachal Pradesh	2003	405
+Arunachal Pradesh	2004	395
+Arunachal Pradesh	2005	350
+Arunachal Pradesh	2006	645
+Arunachal Pradesh	2007	644
+Arunachal Pradesh	2008	549
+Arunachal Pradesh	2009	549
+Arunachal Pradesh	2010	655
+Arunachal Pradesh	2011	670
+Arunachal Pradesh	2012	646
+Assam	2001	13230
+Assam	2002	12550
+Assam	2003	12963
+Assam	2004	14178
+Assam	2005	14209
+Assam	2006	15155
+Assam	2007	15301
+Assam	2008	14945
+Assam	2009	14830
+Assam	2010	14965
+Assam	2011	13630
+Assam	2012	16320
+Bihar	2001	3015
+Bihar	2002	3600
+Bihar	2003	2984
+Bihar	2004	1755
+Bihar	2005	2715
+Bihar	2006	3090
+Bihar	2007	4825
+Bihar	2008	5075
+Bihar	2009	5255
+Bihar	2010	6130
+Bihar	2011	3975
+Bihar	2012	3795
+Chandigarh	2001	350
+Chandigarh	2002	435
+Chandigarh	2003	515
+Chandigarh	2004	375
+Chandigarh	2005	445
+Chandigarh	2006	400
+Chandigarh	2007	408
+Chandigarh	2008	415
+Chandigarh	2009	374
+Chandigarh	2010	355
+Chandigarh	2011	525
+Chandigarh	2012	567
+Chhattisgarh	2001	20051
+Chhattisgarh	2002	19750
+Chhattisgarh	2003	19595
+Chhattisgarh	2004	22475
+Chhattisgarh	2005	24405
+Chhattisgarh	2006	23130
+Chhattisgarh	2007	24195
+Chhattisgarh	2008	24725
+Chhattisgarh	2009	29415
+Chhattisgarh	2010	32563
+Chhattisgarh	2011	33780
+Chhattisgarh	2012	28270
+D & N Haveli	2001	250
+D & N Haveli	2002	250
+D & N Haveli	2003	260
+D & N Haveli	2004	195
+D & N Haveli	2005	345
+D & N Haveli	2006	210
+D & N Haveli	2007	380
+D & N Haveli	2008	300
+D & N Haveli	2009	280
+D & N Haveli	2010	315
+D & N Haveli	2011	315
+D & N Haveli	2012	330
+Daman & Diu	2001	69
+Daman & Diu	2002	85
+Daman & Diu	2003	118
+Daman & Diu	2004	65
+Daman & Diu	2005	159
+Daman & Diu	2006	110
+Daman & Diu	2007	75
+Daman & Diu	2008	95
+Daman & Diu	2009	115
+Daman & Diu	2010	155
+Daman & Diu	2011	165
+Daman & Diu	2012	180
+Delhi (Ut)	2001	6195
+Delhi (Ut)	2002	5265
+Delhi (Ut)	2003	5765
+Delhi (Ut)	2004	6277
+Delhi (Ut)	2005	6224
+Delhi (Ut)	2006	7458
+Delhi (Ut)	2007	7405
+Delhi (Ut)	2008	6511
+Delhi (Ut)	2009	7385
+Delhi (Ut)	2010	7713
+Delhi (Ut)	2011	8580
+Delhi (Ut)	2012	9494
+Goa	2001	1280
+Goa	2002	1545
+Goa	2003	1500
+Goa	2004	1570
+Goa	2005	1410
+Goa	2006	1375
+Goa	2007	1350
+Goa	2008	1431
+Goa	2009	1382
+Goa	2010	1610
+Goa	2011	1465
+Goa	2012	1445
+Gujarat	2001	23955
+Gujarat	2002	23216
+Gujarat	2003	22830
+Gujarat	2004	23868
+Gujarat	2005	23825
+Gujarat	2006	25172
+Gujarat	2007	27900
+Gujarat	2008	30818
+Gujarat	2009	30779
+Gujarat	2010	31035
+Gujarat	2011	31910
+Gujarat	2012	35550
+Haryana	2001	10031
+Haryana	2002	11000
+Haryana	2003	11135
+Haryana	2004	10410
+Haryana	2005	10230
+Haryana	2006	11580
+Haryana	2007	12165
+Haryana	2008	13280
+Haryana	2009	12515
+Haryana	2010	14470
+Haryana	2011	16225
+Haryana	2012	14135
+Himachal Pradesh	2001	1535
+Himachal Pradesh	2002	1670
+Himachal Pradesh	2003	1926
+Himachal Pradesh	2004	1840
+Himachal Pradesh	2005	1795
+Himachal Pradesh	2006	2285
+Himachal Pradesh	2007	2010
+Himachal Pradesh	2008	3148
+Himachal Pradesh	2009	2800
+Himachal Pradesh	2010	2703
+Himachal Pradesh	2011	2214
+Himachal Pradesh	2012	2636
+Jammu & Kashmir	2001	765
+Jammu & Kashmir	2002	919
+Jammu & Kashmir	2003	690
+Jammu & Kashmir	2004	560
+Jammu & Kashmir	2005	1470
+Jammu & Kashmir	2006	1301
+Jammu & Kashmir	2007	1170
+Jammu & Kashmir	2008	1547
+Jammu & Kashmir	2009	1602
+Jammu & Kashmir	2010	1295
+Jammu & Kashmir	2011	1432
+Jammu & Kashmir	2012	2070
+Jharkhand	2001	1250
+Jharkhand	2002	1360
+Jharkhand	2003	1360
+Jharkhand	2004	2085
+Jharkhand	2005	4040
+Jharkhand	2006	4280
+Jharkhand	2007	6427
+Jharkhand	2008	4555
+Jharkhand	2009	5550
+Jharkhand	2010	6158
+Jharkhand	2011	6060
+Jharkhand	2012	6595
+Karnataka	2001	59405
+Karnataka	2002	61350
+Karnataka	2003	61805
+Karnataka	2004	59685
+Karnataka	2005	57785
+Karnataka	2006	61060
+Karnataka	2007	61520
+Karnataka	2008	61110
+Karnataka	2009	60975
+Karnataka	2010	63255
+Karnataka	2011	63110
+Karnataka	2012	63765
+Kerala	2001	47860
+Kerala	2002	49050
+Kerala	2003	47190
+Kerala	2004	45265
+Kerala	2005	46220
+Kerala	2006	45130
+Kerala	2007	44810
+Kerala	2008	42845
+Kerala	2009	43775
+Kerala	2010	42930
+Kerala	2011	41421
+Kerala	2012	42450
+Lakshadweep	2001	0
+Lakshadweep	2002	0
+Lakshadweep	2003	10
+Lakshadweep	2004	0
+Lakshadweep	2005	0
+Lakshadweep	2006	10
+Lakshadweep	2007	15
+Lakshadweep	2008	0
+Lakshadweep	2009	5
+Lakshadweep	2010	5
+Lakshadweep	2011	0
+Lakshadweep	2012	5
+Madhya Pradesh	2001	34300
+Madhya Pradesh	2002	34495
+Madhya Pradesh	2003	33810
+Madhya Pradesh	2004	33975
+Madhya Pradesh	2005	27240
+Madhya Pradesh	2006	32175
+Madhya Pradesh	2007	31645
+Madhya Pradesh	2008	38145
+Madhya Pradesh	2009	45565
+Madhya Pradesh	2010	45015
+Madhya Pradesh	2011	46295
+Madhya Pradesh	2012	48875
+Maharashtra	2001	73090
+Maharashtra	2002	72645
+Maharashtra	2003	73800
+Maharashtra	2004	73645
+Maharashtra	2005	72130
+Maharashtra	2006	77470
+Maharashtra	2007	75920
+Maharashtra	2008	71870
+Maharashtra	2009	71500
+Maharashtra	2010	79580
+Maharashtra	2011	79735
+Maharashtra	2012	80560
+Manipur	2001	205
+Manipur	2002	195
+Manipur	2003	130
+Manipur	2004	204
+Manipur	2005	134
+Manipur	2006	180
+Manipur	2007	195
+Manipur	2008	170
+Manipur	2009	134
+Manipur	2010	185
+Manipur	2011	165
+Manipur	2012	205
+Meghalaya	2001	435
+Meghalaya	2002	332
+Meghalaya	2003	205
+Meghalaya	2004	275
+Meghalaya	2005	355
+Meghalaya	2006	459
+Meghalaya	2007	435
+Meghalaya	2008	424
+Meghalaya	2009	557
+Meghalaya	2010	537
+Meghalaya	2011	761
+Meghalaya	2012	640
+Mizoram	2001	270
+Mizoram	2002	330
+Mizoram	2003	260
+Mizoram	2004	300
+Mizoram	2005	275
+Mizoram	2006	348
+Mizoram	2007	140
+Mizoram	2008	205
+Mizoram	2009	339
+Mizoram	2010	380
+Mizoram	2011	450
+Mizoram	2012	857
+Nagaland	2001	200
+Nagaland	2002	135
+Nagaland	2003	109
+Nagaland	2004	155
+Nagaland	2005	135
+Nagaland	2006	140
+Nagaland	2007	116
+Nagaland	2008	210
+Nagaland	2009	153
+Nagaland	2010	60
+Nagaland	2011	165
+Nagaland	2012	150
+Odisha	2001	20254
+Odisha	2002	21940
+Odisha	2003	22100
+Odisha	2004	21075
+Odisha	2005	21040
+Odisha	2006	20325
+Odisha	2007	21540
+Odisha	2008	24520
+Odisha	2009	21825
+Odisha	2010	21275
+Odisha	2011	26205
+Odisha	2012	25135
+Puducherry	2001	2645
+Puducherry	2002	2835
+Puducherry	2003	2910
+Puducherry	2004	2694
+Puducherry	2005	2690
+Puducherry	2006	2630
+Puducherry	2007	2585
+Puducherry	2008	2535
+Puducherry	2009	2590
+Puducherry	2010	2540
+Puducherry	2011	2785
+Puducherry	2012	2705
+Punjab	2001	3240
+Punjab	2002	2535
+Punjab	2003	3155
+Punjab	2004	3225
+Punjab	2005	2940
+Punjab	2006	3860
+Punjab	2007	4235
+Punjab	2008	4345
+Punjab	2009	4235
+Punjab	2010	4600
+Punjab	2011	4830
+Punjab	2012	5150
+Rajasthan	2001	15975
+Rajasthan	2002	16240
+Rajasthan	2003	18305
+Rajasthan	2004	18625
+Rajasthan	2005	20889
+Rajasthan	2006	21315
+Rajasthan	2007	22185
+Rajasthan	2008	25830
+Rajasthan	2009	25325
+Rajasthan	2010	24600
+Rajasthan	2011	21740
+Rajasthan	2012	24105
+Sikkim	2001	470
+Sikkim	2002	383
+Sikkim	2003	525
+Sikkim	2004	488
+Sikkim	2005	545
+Sikkim	2006	725
+Sikkim	2007	610
+Sikkim	2008	1435
+Sikkim	2009	1204
+Sikkim	2010	1400
+Sikkim	2011	916
+Sikkim	2012	905
+Tamil Nadu	2001	56450
+Tamil Nadu	2002	56134
+Tamil Nadu	2003	59360
+Tamil Nadu	2004	64195
+Tamil Nadu	2005	60380
+Tamil Nadu	2006	61905
+Tamil Nadu	2007	69055
+Tamil Nadu	2008	72125
+Tamil Nadu	2009	71832
+Tamil Nadu	2010	82805
+Tamil Nadu	2011	79815
+Tamil Nadu	2012	84635
+Total (All India)	2001	217012
+Total (All India)	2002	220834
+Total (All India)	2003	221702
+Total (All India)	2004	227394
+Total (All India)	2005	227828
+Total (All India)	2006	236224
+Total (All India)	2007	245274
+Total (All India)	2008	250034
+Total (All India)	2009	254302
+Total (All India)	2010	269198
+Total (All India)	2011	271170
+Total (All India)	2012	270890
+Total (States)	2001	212950
+Total (States)	2002	216998
+Total (States)	2003	217644
+Total (States)	2004	223306
+Total (States)	2005	223604
+Total (States)	2006	231630
+Total (States)	2007	240614
+Total (States)	2008	245804
+Total (States)	2009	249740
+Total (States)	2010	264452
+Total (States)	2011	265950
+Total (States)	2012	265334
+Total (Uts)	2001	4062
+Total (Uts)	2002	3836
+Total (Uts)	2003	4058
+Total (Uts)	2004	4088
+Total (Uts)	2005	4224
+Total (Uts)	2006	4594
+Total (Uts)	2007	4660
+Total (Uts)	2008	4230
+Total (Uts)	2009	4562
+Total (Uts)	2010	4746
+Total (Uts)	2011	5220
+Total (Uts)	2012	5556
+Tripura	2001	4270
+Tripura	2002	3891
+Tripura	2003	4220
+Tripura	2004	3850
+Tripura	2005	3575
+Tripura	2006	3825
+Tripura	2007	3525
+Tripura	2008	3760
+Tripura	2009	3689
+Tripura	2010	3625
+Tripura	2011	3515
+Tripura	2012	4220
+Uttar Pradesh	2001	17580
+Uttar Pradesh	2002	21250
+Uttar Pradesh	2003	18315
+Uttar Pradesh	2004	18185
+Uttar Pradesh	2005	17245
+Uttar Pradesh	2006	15495
+Uttar Pradesh	2007	19610
+Uttar Pradesh	2008	20440
+Uttar Pradesh	2009	20790
+Uttar Pradesh	2010	18140
+Uttar Pradesh	2011	24195
+Uttar Pradesh	2012	22107
+Uttarakhand	2001	1555
+Uttarakhand	2002	1805
+Uttarakhand	2003	1953
+Uttarakhand	2004	1185
+Uttarakhand	2005	1365
+Uttarakhand	2006	1630
+Uttarakhand	2007	1238
+Uttarakhand	2008	948
+Uttarakhand	2009	1710
+Uttarakhand	2010	1402
+Uttarakhand	2011	1585
+Uttarakhand	2012	2120
+West Bengal	2001	68450
+West Bengal	2002	65035
+West Bengal	2003	66400
+West Bengal	2004	67035
+West Bengal	2005	75075
+West Bengal	2006	78625
+West Bengal	2007	74300
+West Bengal	2008	74260
+West Bengal	2009	73240
+West Bengal	2010	80185
+West Bengal	2011	82460
+West Bengal	2012	44871
+Time taken: 52.082 seconds, Fetched: 456 row(s)
+hive> 

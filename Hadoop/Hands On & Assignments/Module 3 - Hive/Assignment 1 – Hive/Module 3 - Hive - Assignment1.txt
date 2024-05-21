@@ -1,0 +1,4473 @@
+ubh01@ubh01:~$ start-all.sh
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+24/05/19 20:08:27 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-namenode-ubh01.out
+localhost: starting datanode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-datanode-ubh01.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-secondarynamenode-ubh01.out
+24/05/19 20:08:55 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+starting yarn daemons
+starting resourcemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-resourcemanager-ubh01.out
+localhost: starting nodemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-nodemanager-ubh01.out
+ubh01@ubh01:~$ jps
+3648 NameNode
+4580 NodeManager
+4437 ResourceManager
+4262 SecondaryNameNode
+5063 Jps
+3917 DataNode
+ubh01@ubh01:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/hive-common-2.3.2.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> show databases;
+Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+OK
+default
+retail
+sumitdb
+Time taken: 6.994 seconds, Fetched: 3 row(s)
+hive> create database Module3-Hive-Assignment1;
+FAILED: ParseException line 1:23 missing EOF at '-' near 'Module3'
+hive> create database Module3_Hive_Assignment1;
+OK
+Time taken: 0.481 seconds
+hive> show databases;
+OK
+default
+module3_hive_assignment1
+retail
+sumitdb
+Time taken: 0.097 seconds, Fetched: 4 row(s)
+hive> use Module3_Hive_Assignment1;
+OK
+Time taken: 0.063 seconds
+hive> create table twitterdata (str string);
+OK
+Time taken: 0.726 seconds
+hive> load data local inpath "Data" into table twitterdata;
+Loading data to table module3_hive_assignment1.twitterdata
+OK
+Time taken: 7.147 seconds
+hive> select get_json_object (str,'$.id_str') as ID from twitterdata;
+OK
+763652545684406272
+763652595550392320
+763652619520925696
+763652639556894720
+763652640999743488
+763652650017628160
+763652662378262528
+763652665159086080
+763652685837066240
+763652707227799552
+763652731169075201
+763652784227028992
+763652798374379520
+763652803998908416
+763652835162501120
+763652841177088000
+763652843211415552
+763652846365442048
+763652854993162240
+763652863159664640
+763652866385047552
+763652872177344512
+763652893962559488
+763652897691275264
+763653002263601152
+763653002221740032
+763653015446237184
+763653047004360704
+763653048807723008
+763653074229407746
+763653075722612736
+763653099986751488
+763653117376245760
+763653135055196160
+763653140671500289
+763653148888162304
+763653186062323713
+763653204651323392
+763653228139540480
+763653239011180544
+763653243817889792
+763653245155827712
+763653245935972352
+763653247412367364
+763653250881097729
+763653256031637504
+763653300180885504
+763653388802351104
+763653414148378624
+763653423367499776
+763653445643624448
+763653456263389184
+763653464274546689
+763653465373417472
+763653479894126592
+763653493731184640
+763653495014567936
+763653499833966592
+763653507182243840
+763653523573571584
+763653568410812416
+763653572101808128
+763653601340391424
+763653613893914624
+763653614875316224
+763653664519036929
+763653677840302080
+763653681615077376
+763653683074793472
+763653686535028737
+763653693229195264
+763653704067219456
+763653716666908672
+763653730533343232
+763653744575864832
+763653766696407041
+763653769070383104
+763653792344764416
+763653796106948608
+763653796895612928
+763653798724243457
+763653809943879680
+763653809071542272
+763653837739524097
+763653842323902464
+763653861341073408
+763653881788235776
+763653930001821697
+763653933176938496
+763653946510573569
+763653960955604992
+763653970871091200
+763653990563323904
+763653993914511360
+763654022217633792
+763654065272287232
+763654109098446848
+763654110721679360
+763654124143509504
+763654132020285440
+763654134822215680
+763654138173329409
+763654150303444992
+763654167982317568
+763654203034234880
+763654207945646082
+763654214715310080
+763654244096356352
+763654252187254784
+763654252048814080
+763654262484119553
+763654269576765442
+763654273120952320
+763654278242336768
+763654303043166213
+763654304704057344
+763654336362778625
+763654338434654208
+763654348136181760
+763654381942218752
+763654410303963136
+763654456206585856
+763654466142732288
+763654477274578944
+763654479279448064
+763654489676984320
+763654495867854848
+763654503136722944
+763654506034757633
+763654511110004736
+763654546027601920
+763654551727595520
+763654567473143808
+763654569742053377
+763654571549794304
+763654573848264704
+763654576331292673
+763654578109833216
+763654578701119489
+763654587203063808
+763654629561290752
+763654686196903936
+763654705931231232
+763654714814631936
+763654738617311233
+763654741893214208
+763654768929538049
+763654785065226240
+763654794678415360
+763654807949303808
+763654852387872768
+763654947913076738
+763654992167313408
+763654991525666817
+763655010039324672
+763655020952903680
+763655045384581121
+763655096370655232
+763655104436121600
+763655121909665792
+763655167858180096
+763655177555410944
+763655205246369793
+763655218294878208
+763655219834130432
+763655232488247296
+763655244333002752
+763655261349261312
+763655279665934336
+763655298250747905
+763655323387170817
+763655329053827072
+763655374209703936
+763655444627718144
+763655502660120576
+763655559925161984
+763655575989170176
+763655683745128448
+763655693136236544
+763655707153403904
+763655709271601152
+763655709976395780
+763655712039768064
+763655712987836416
+763655713616900096
+763655714665435136
+763655714619346944
+763655716242456576
+763655717337255936
+763655716871733248
+763655718314532864
+763655720021610496
+763655720055078912
+763655721871257600
+763655721489731584
+763655724660502529
+763655725138653184
+763655741613805568
+763655763130716160
+763655811046313984
+763655813093351424
+763655841727836160
+763655845825552384
+763655885637898240
+763655889760944128
+763655900196372480
+763655931460595712
+763655931330572288
+763655946136682496
+763655963865907201
+763656069063114752
+763656106958741504
+763656132271407104
+763656184226197504
+763656209287131136
+763656212063727616
+763656223317168128
+763657631080648704
+763657640018784257
+763657642023739392
+763657679093071872
+763657692409987072
+763657694792208385
+763657709962932224
+763657723325980672
+763657748126969856
+763657751428001792
+763657774953852928
+763657777940168704
+763657787553550336
+763657803844247552
+763657830125613058
+763657833313243137
+763657850245689344
+763657852951072768
+763657867920568324
+763657871384907776
+763657874056753152
+763657894910955520
+763657934115004416
+763657956294594560
+763657965727576064
+763657975953141761
+763657987588173825
+763658013160845312
+763658015258050560
+763658025630593024
+763658042764251137
+763658046635646977
+763658059122171904
+763658062276079617
+763658066072133632
+763658073718259713
+763658099311906816
+763658115044737024
+763658127078150144
+763658130223931393
+763658134548131840
+763658143096250372
+763658163316985856
+763658186826145792
+763658208187670529
+763658219382185984
+763658231625322496
+763658249161826304
+763658272805191680
+763658283974594564
+763658344724922368
+763658417823162368
+763658435200184320
+763658440422092800
+763658441923538944
+763658470373543936
+763658472449777664
+763658505844850688
+763658550589743104
+763658564607049728
+763658570617327618
+763658587331788800
+763658592608145408
+763658609725206528
+763658617149124608
+763658626561179649
+763658632831569920
+763658638447800320
+763658651928231936
+763658663278043136
+763658680902438912
+763658687827312641
+763658715073478656
+763658716985954305
+763658723759796224
+763658728705064960
+763658729791361024
+763658742961434624
+763658746929217536
+763658751006150656
+763658783335804928
+763658795494936577
+763658796703047680
+763658818878369792
+763658824700026880
+763658830207029248
+763658882438799360
+763658923677188096
+763658930270502912
+763658932258758660
+763658936473952256
+763658984288948225
+763658987493556224
+763658988202459137
+763659020267905024
+763659032158691328
+763659043512672256
+763659079768240128
+763659118917787648
+763659152224874496
+763659158772129792
+763659173267509249
+763659232109486080
+763659235578241025
+763659301093249024
+763659303026724864
+763659315693617152
+763659317937577985
+763659322232541184
+763659359075328000
+763659399600766976
+763659419305570304
+763659450926395392
+763659451274493952
+763659457440182272
+763659500427632640
+763659504432979969
+763659505737535488
+763659508304388096
+763659534057472000
+763659563102932994
+763659575862169601
+763659606195249152
+763659619256283136
+763659619902164992
+763659645525200896
+763659661547479040
+763659664265515008
+763659672511475712
+763659698809831424
+763659704300036096
+763659739645476864
+763659746360586240
+763659751708299265
+763659757206986754
+763659760386318340
+763659764643434496
+763659786722344961
+763659957438939136
+763660000896036865
+763660018369630208
+763660021456576512
+763660053006065664
+763660099785224192
+763660194404524032
+763660194526224384
+763660216793718784
+763660226604040192
+763660234623680512
+763660300713287680
+763660316257296384
+763660319004712960
+763660337719705600
+763660359261626368
+763660360163454976
+763660387904548864
+763660401489969152
+763660443931979776
+763660448407302144
+763660465906024449
+763660496218288129
+763660512156643329
+763660525762928640
+763660527419654144
+763660538685644800
+763660543970406400
+763660560252690432
+763660560026132480
+763660567097683968
+763660580506914820
+763660583027761152
+763660593140072449
+763660624970780672
+763660683120521216
+763660683795980288
+763660685410787329
+763660738980261888
+763660757825261569
+763660761214308352
+763660776972230656
+763660779505737728
+763660819343237120
+763660881611808769
+763660884036116480
+763660885994844161
+763660887840268288
+763660892613414912
+763660893595074560
+763660894299533312
+763660895557783552
+763660896811962368
+763660900280578048
+763660900804939776
+763660901643853824
+763660904550445057
+763660911194234881
+763660913765257216
+763660915430436864
+763660928105771012
+763660963694407680
+763660981440425984
+763660981394219008
+763660982526865408
+763661017515687936
+763661023928659968
+763661041603518464
+763661053142052864
+763661062822567936
+763661074570678272
+763661074906382340
+763661103981363201
+763661140341755904
+763661144837984256
+763661151758614532
+763661164983230464
+763661165486563328
+763661169722732548
+763661181512888320
+763661181512851456
+763661202748760064
+763661208536883200
+763661220201242625
+763661240761581568
+763661243580383232
+763661243425165313
+763661253671657472
+763661256452546560
+763661264149155840
+763661269018763264
+763661269211738112
+763661270084190208
+763661280846766080
+763661281190612992
+763661286932553728
+763661298273968129
+763661306410901504
+763661311746019328
+763661318071152640
+763661318188445696
+763661325671292933
+763661326958878720
+763661328439447552
+763661332403085312
+763661364845957120
+763661368067297280
+763661405950210048
+763661419942252544
+763661427970220032
+763661428230414336
+763661433066426368
+763661432344895488
+763661434941280256
+763661457464565760
+763661477026734084
+763661484052271104
+763661493074264064
+763661493040615425
+763661499705364480
+763661506030538753
+763661518009307136
+763661522149179392
+763661541061357568
+763661544987037696
+763661575718744064
+763661592705761281
+763661594773499904
+763661616697278464
+763661630211227648
+763661644337520640
+763661651996512257
+763661674054291456
+763661682195435520
+763661693373251584
+763661736616394752
+763661742383566848
+763661794149797888
+763661803070951424
+763661851561525248
+763661908771762176
+763661909753204736
+763661936013619200
+763661993391693824
+763662011335081985
+763662038359048192
+763662041194323968
+763662049629048832
+763662054511214592
+763662058541944833
+763662101877403649
+763662107346886656
+763662154293714944
+763662161004683264
+763662164217344000
+763662196043837440
+763662202503036928
+763662256341131264
+763662302319091712
+763662302495277056
+763662311517073408
+763662311034945536
+763662322141388800
+763662348062109696
+763662362876542976
+763662401359065089
+763662422704029696
+763662435139977216
+763662457491496960
+763662461056741377
+763662461472018432
+763662526982742016
+763662530711547905
+763662535446986752
+763662562986717184
+763662596771876868
+763662675285008384
+763662732411494400
+763662742117052416
+763662754259632128
+763662781673410561
+763662829576658944
+763662874891939840
+763662876934451201
+763662882299150336
+763662957679112193
+763662975400079360
+763662985827086337
+763662994614083584
+763663014776213504
+763663048947015680
+763663065103626240
+763663067112542208
+763663085747994624
+763663144300507137
+763663152659570689
+763663155558047744
+763663187753390081
+763663207395385344
+763663233081339905
+763663239217573889
+763663239813009408
+763663243772620801
+763663244124835840
+763663246461136896
+763663286973923328
+763663339658571776
+763663345513660416
+763663385179394048
+763663430247145472
+763663465907126272
+763663471242252288
+763663478024343552
+763663497892864000
+763663520659546112
+763663524321038336
+763663531749224448
+763663600280018945
+763663642759794688
+763663650057883648
+763663653824593920
+763663660073922561
+763663676960309248
+763663680621862912
+763663697285902336
+763663719700242432
+763663737857380352
+763663756106883072
+763663766252822528
+763663783571095552
+763663786083516416
+763663793918468096
+763663796405764096
+763663801900228609
+763663804416884736
+763663806883135488
+763663807688376324
+763663824335626240
+763663847966117888
+763663864814854144
+763663900546043904
+763663913888190464
+763663920267612160
+763663932791910400
+763663953943592960
+763663968321826816
+763663993235841025
+763664002748669952
+763664010013048832
+763664014022995968
+763664018137579521
+763664026769424384
+763664059279355904
+763664064904060928
+763664103416041473
+763664104334716928
+763664112911982592
+763664130251239424
+763664130658209793
+763664135129337856
+763664136790085633
+763664152829300737
+763664154184081409
+763664160706134016
+763664162002243584
+763664171560996864
+763664177902686208
+763664185012215810
+763664199167991808
+763664204234625024
+763664204746395648
+763664207334080513
+763664213269250048
+763664229987672064
+763664241341542400
+763664255572774912
+763664269799981056
+763664286929547264
+763664294483521536
+763664308366675968
+763664344957722624
+763664361172992000
+763664378411360256
+763664394202980352
+763664397613068288
+763664403124195329
+763664409088712704
+763664426583154688
+763664435982561280
+763664444060753920
+763664459164442624
+763664461311934464
+763664471613116416
+763664480777613312
+763664501552152576
+763664511886733313
+763664514063667200
+763664514969575424
+763664535005782016
+763664549182599168
+763664567603982336
+763664583282352128
+763664589846355968
+763664594032218112
+763664609140170752
+763664613552582656
+763664661061496832
+763664679059136513
+763664702979256320
+763664711191785472
+763664718808682496
+763664744049963008
+763664757736038400
+763664772730617856
+763664790002642944
+763664790698991616
+763664792984834048
+763664808323518464
+763664838958673920
+763664858281832448
+763664885376888832
+763664887973236736
+763664896483528704
+763664897255366656
+763664910073077761
+763664964175405056
+763664970047426560
+763664980038201344
+763665011575255040
+763665014817423360
+763665027387850752
+763665030147694592
+763665071289446400
+763665099521417216
+763665135743361024
+763665148368281600
+763665158900244480
+763665227061886977
+763665238554185728
+763665278341419008
+763665291364724736
+763665298633306112
+763665313535696896
+763665323207880704
+763665324084428800
+763665344326045696
+763665345014030337
+763665357043146752
+Time taken: 1.133 seconds, Fetched: 703 row(s)
+hive> select get_json_object (str,'$.user.screen_name') as Display_Name from twitterdata;
+OK
+saraf_silky
+IlseHimschoot
+Jhalli_lily
+shopmavablog
+GouravvRock
+ModelGarima
+ConeyDataDriven
+rpunamia
+Jhalli_lily
+Avkworld
+bennchi2010
+agnidj507
+deltarap2
+billyqb
+CatchMyCoupon
+CatchMyCoupon
+Sensible_Mona
+CatchMyCoupon
+CatchMyCoupon
+newswalletapp
+SnehalataJ
+krmayank13
+rpunamia
+rahul_shaitan
+jmkandukuri
+fggplaneta
+GouravvRock
+rpunamia
+ghunjain
+ExploreWeb2dot0
+ExploreWeb2dot0
+actorankur
+AudbertoOrtiz
+AllNewLive
+Dating_SEO
+paisebachaoPBI
+_Sir_Deepak
+lady_gabbar
+rcerrada
+sotoware
+DealzBasket
+SotoSocialMedia
+DealzBasket
+DealzBasket
+conspirified
+btcusdbitcoin
+statvoo
+JatinKiDuniya
+Himanshu_tutme
+MOBSCEO
+actorankur
+HITKPKD
+taraklein70
+pktwr
+CthekGoru
+_Lazy_Blogger
+aslambratkhail
+SunilCh27526351
+adit_rk
+GkGkatho
+PaidSearchSEM
+HITKPKD
+ajayjolly
+EarnFromDating
+me_palash
+RedSeer
+SunilCh27526351
+me_palash
+KatlyneMona
+TurnedTwins
+japavonorta
+GeDesPi
+newsmarketeer
+iHarishPal
+CashmintIN
+techdivine
+Pooja__G
+Pooja__G
+LongfellowIM
+TurnedTwins
+jordanshreriff
+world1consult
+BaniyaDeals
+_BusinessWoman
+DunceMiguel
+8_commerce
+DIMMarketing
+hzenderink
+agnidj507
+SURILSHAH10
+YoursearchToday
+CoolRaniK
+EarwaxDigital
+saibaz92
+KisWowillion
+aminprivate
+Pooja__G
+lws_101
+BabuBeg
+pktwr
+bavsfan1313
+Gowthaman_csk
+paisebachaoPBI
+kirtibasal
+bennchi2010
+JatinKiDuniya
+jordanshreriff
+HITKPKD
+LeanderCorrie
+inceptionim
+lokesh_NTRfan
+Alpha_Innova
+careerjobs4you
+247MarketingTip
+LeanderCorrie
+JatinKiDuniya
+jordanshreriff
+JhezeRBlog
+ronak_ruparel
+Petrolekasst
+IavorschiM
+ShriBhivaskar
+_e_marketing_
+ShriBhivaskar
+projecter
+Gowthaman_csk
+Pooja__G
+BabuBeg
+fameable
+jackiewolven
+CorpStation
+lootmeladotin
+CorpStation
+businessinfoguy
+articlefriends
+trafficfriends
+income2010
+ErLootMela
+computerfeeds
+speed9896922747
+Pooja__G
+GouravvRock
+priyalpoddar
+HeLenLLaniLLo
+Baashhu
+rsingh_28
+Pooja__G
+II_OP_T6
+Baashhu
+GrupoGraphic
+Gowthaman_csk
+DOPEMUZIKPROMO
+NelAhumuza
+tapan_nayak
+Jollybossmedia
+ShriBhivaskar
+danny_taylor68
+MrSeriousFrank
+GouravvRock
+AndreaStockton6
+AndreaStockton6
+Gowthaman_csk
+ShriBhivaskar
+devshashi9
+lootmeladotin
+yograut
+yo_yo_baba
+Yennypusaka
+ToddAndLeahRae
+opinity
+ChristinaDenne2
+jordanshreriff
+mrjintheuk
+coachlistya
+Gowthaman_csk
+varun4yaars
+bhumika1231
+TridibDe13
+Jackyzhouj2
+sanjitsharma_
+kushan_sameer
+boozychef
+Lover_Aashish
+LullaAbhishek
+manojsaini_one
+nitin_kmr_
+KompyteUpdates
+PalHari_Om
+puri_rahulpuri
+pawankumar_IN
+raj_balvinder
+ravikant_rocks
+navneet_siwach
+mohitsharma_1
+shrma_sanjeev
+rohitsaini_one
+4Gupdate
+Aoristactivist
+i_patriottt
+theponyhalf
+theponyhalf
+tapan_nayak
+_Mister_SEO
+valukind
+Gowthaman_csk
+gaikwadashish14
+lootmeladotin
+hitweetme
+ErLootMela
+SnehalataJ
+TechArun_Net
+niculucanu
+krmayank13
+KompyteUpdates
+nikhilneswankar
+thallubadi
+CashmintIN
+BlogTool_
+Web__Marketing_
+OnnoWouters
+whoislogo
+Jhalli_lily
+manager_jobs
+coachlistya
+MyBizPresence
+TheTalliQueen
+KostikPanfilov
+georgesbos
+anuudelhi
+relishingrascal
+aaliyahlin2
+BaniyaDeals
+kirtibasal
+PG3_London
+RyabovTima
+Suzuki_SBM
+PF_Wirtschaft
+MShaneva
+ModelGarima
+AnkurGoesSocial
+adamchapman1987
+Social_HireJobs
+jlgrisham
+chavipatankarr
+mad_programmer
+LixachyovaMarka
+shah_himanshu
+YtalkiesLive
+gezgintrk
+relishingrascal
+Rikins
+adelinaanthony7
+JatinKiDuniya
+JatinKiDuniya
+aelitaterentev1
+ChintanMehra
+Suzuki_SBM
+coool_kashish
+ntsoni_group
+BrittanySheena1
+mannuforall
+anatoliynekff0p
+meDeepakJain
+nitin_cul
+NoskovToni
+GrupoGraphic
+theblogpersonal
+Elixir_Man
+LudellJones
+aksenovsilan96
+Suzuki_SBM
+manager_jobs
+Johnson_Ganesh
+KompyteUpdates
+jordanshreriff
+EvseevLarion
+jordanshreriff
+dealstodaycoin
+berlin_startups
+dealstodaycoin
+mitulbhatt97
+jordanshreriff
+ModelGarima
+Elixir_Man
+alexisforman86
+Sabaikobazaar
+jordanshreriff
+Chanchal333
+aidancarlson2
+anujjha30
+coachlistya
+Cho_thue_nha
+pruebaokl
+WorldTweetNews
+Suzuki_SBM
+alexisw03937339
+CashmintIN
+scienmag
+ajithrajesh_tut
+kimchemicals
+Sunilkc1234
+Phrustated
+Born2bAwsome
+arturqla
+mktdeliveryec
+toposant55
+Elixir_Man
+toposant55
+ReadForGreed
+anatoliyzhuon
+Mohit4377
+adicrazy
+arroyodiego1996
+Cho_thue_nha
+VoronczovZhores
+LisaMLoeffler
+Elixir_Man
+afanasevisai
+cbrito7912
+HITKPKD
+agathamcintyre2
+annpatrick1992
+manager_jobs
+mannuforall
+ReadForGreed
+kimchemicals
+aramkotov84
+ElK1972
+SahajRKumar
+krutinraj007
+Mohit4377
+angelikabarano3
+jordanshreriff
+TechnoCultureIN
+worldbuzzmedia
+dealzkart
+halfbloodmalfoy
+tanya_s7
+krutinraj007
+shantanusaluja2
+KiranSharmamt
+param912
+silku12
+Silkyxbox
+anatoliyl2ec
+nkahar11
+JoseLuisCon3ras
+SixFigure_Expat
+krutinraj007
+ariixandalucia
+nkahar11
+silku12
+SnehalataJ
+nextbigwhat
+amandapope1986
+Elixir_Man
+walker15130
+OnL_MarketingDE
+Elixir_Man
+OffersXpIndia
+BestReviewGuide
+Elixir_Man
+YorkPrieto1
+deuga2016
+coachlistya
+antoninsharov96
+shubhamshinde29
+db_deba
+ModelGarima
+TigranNaumov
+3novicesSydney
+shah_himanshu
+CrazyheadsCo
+Elixir_Man
+nikkisolanki42
+KompyteUpdates
+agafangelosipo1
+eacarjewelry
+SMP_Strategy
+aristarhnikono1
+shah_himanshu
+blazingBrainz
+MarketingResul2
+shah_himanshu
+Cho_thue_nha
+DEBSocialMedia
+internetguru55
+SahajRKumar
+LessonsSinging
+antonovolimpia1
+mannuforall
+animaisaefremo2
+giovannapegan
+seemavyas73
+GetItNow2
+deepu4all
+KharidoCashBLo
+isumitksinha
+aleksandrinami6
+sshuklatweets
+kunalpoonawala
+pritamkatelia
+HushHussain
+thus_spake
+Indraje21688170
+SavioDTOI
+AficionadoYash
+s_priyanka26
+Indraje21688170
+Chhota_Bhim
+ibtpartners
+thus_spake
+icitizen2371
+Naveenkashyap17
+AksithiBassin
+alekseevkondra4
+blazingBrainz
+coachlistya
+coachlistya
+balaji_sh
+agafiyagureva88
+DataMiningNews1
+sbashheen
+carlosvilla
+carlosvilla
+dnskppua
+SilinVil
+nikhil_bajpai
+krmayank13
+jordanshreriff
+adaflowers15
+PymesUnidasEs
+kathy73188474
+r_rachit75
+GouravvRock
+GouravvRock
+shubhamjhadash1
+jordanshreriff
+adreyashashkova
+GouravvRock
+PicopointToday
+myCEOau
+MiriamMbeya
+DrSt_Ca
+digitalera313
+ShaileshMistry
+GeDesPi
+onlinetools
+yourwaygps
+agafonovayuman2
+fitnessguru34
+GouravvRock
+MichelinaTread
+seemavyas73
+arbeit_leipzig
+HITKPKD
+KatlyneMona
+anfiyakolesnik2
+cmoinspired
+CashmintIN
+Zeal4Dealsindia
+tpsylvia
+nijkampjasper
+retail_Dbt
+twitfavapp
+aleksandrovmit1
+mittalanshuin
+Basepoint_Chtam
+FlipkartStories
+Matt__Marketing
+Sensible_Mona
+lalitc18
+AgniyaYakovleva
+Kidwaiuzma26
+whigheagles
+BrandPitNL
+FindYourIntern
+SemBilbao
+PseudoSarcastic
+shubhendu83
+retail_Dbt
+newsmarketeer
+Zeal4Dealsindia
+reybhayana
+Simpletelecomms
+FlipHotDeals
+GoogleDokter
+blazingBrainz
+mannuforall
+MitrofanLobanov
+coachlistya
+semrush_es
+allisonseth1
+_AutoMarketing
+ahmedsidorov95
+yogitainsan7
+yogitainsan7
+AquiL4X
+WIfeedback
+rahuldhyani5
+tanayatravel
+eb2b_env
+sbickford7
+adaallford1
+krutinraj007
+SuccessPros
+alexandraralei1
+Phrustated
+antiohrybakov1
+MShaneva
+RalfAmrein
+stgo8pb2009
+DealzBasket
+sanderoord
+MikeKawula
+ash_snowflake
+Owen_OS
+ankurarora0
+ash_snowflake
+alimadison1996
+HITKPKD
+EvmenijGordeev
+ash_snowflake
+AnsumRiku
+relishingrascal
+KiranSharmamt
+_e_marketing_
+MidwebServices
+arefiiyakushev3
+Sabaikobazaar
+updatesbot
+Sabaikobazaar
+Swaty_Here
+Swaty_Here
+worldbuzzmedia
+HITKPKD
+aaronsawyer1986
+TheEngineerHack
+bakere7882h
+belovazorina191
+Sabaikobazaar
+Koolsocial
+LolitaVasileva
+coachlistya
+fancyseller
+Easy_SEO_Tool
+WebinarJEO
+ashishuk38
+aleksandro89an
+chetanpatidar25
+lalitc18
+india_gadgets
+atharvdawar
+benthere42
+Sabaikobazaar
+brucediana85
+Bonzo706
+eMarketingYa
+sutrasoftwares
+coachlistya
+avreliyauvarov1
+browngloria4
+rahuldhyani5
+burtonmabel89
+christi23279738
+webwinkelen
+baranovayulian7
+_e_marketing_
+rahuldhyani5
+ayershayden1
+GauravSingh_14
+seo88market
+esha_goel
+FundWatchApp
+FreeKaShopping
+cm_ramoslinares
+KharidoCashBLo
+cameron04837943
+lady_gabbar
+verbeterverkoop
+dementevadasiy1
+sujaykoner
+Semos_cs
+bryantsebastia5
+Variedades_20
+jonathan71b
+BeMoebius
+BlogLCU
+BecasLatam
+BecasVzla
+CursosVzla
+LadySadie66
+ADmanMedia
+job_benl_mkt
+blohinasulamif2
+zulutions
+buchananerin191
+ShahDaffodil
+MichiKunz77
+hemantabbot
+egorsube4sl
+DArtDesignPro
+MarkkuHihnala
+nikhilneswankar
+nikhilneswankar
+lordoftheshibs
+opal_cloud
+lady_gabbar
+clairesalazar92
+JeroenVenus
+cabreraian94
+iamudaykumarPkf
+JatinKiDuniya
+kamlesh_maru
+irfanshamsi3
+_Tim_David
+CombitoDigServ
+belovserapion87
+NikoNs6
+kamlesh_maru
+omprakashh111
+JatinKiDuniya
+dreamkigegorge
+BeingChatterjee
+diegohodge7
+kamlesh_maru
+nikhilneswankar
+nikhilneswankar
+irfanshamsi3
+hardik
+KharidoCashBLo
+halfbloodmalfoy
+Bristol_MKTG
+technotipz
+dionisiyamarko6
+irfanshamsi3
+daniell24919736
+retail_Dbt
+nikhilneswankar
+nikhilneswankar
+GouravvRock
+fedorilinl1xy
+BuyBuyfineitems
+BLUECARAT
+ALTAF786007
+efimovakinfii3
+nordmarketingag
+vivak0099
+cinemawaleghosh
+chetanpatidar25
+nikhilneswankar
+newsmarketeer
+HITKPKD
+_publishingg
+0C5
+fraseranita85
+Internetmethode
+Todayofferspost
+SimonRe95
+Janeth_2294
+daltonadelina1
+daniell20882197
+sambhrant_s
+KharidoCashBLo
+belyaevaviliya1
+shoeb_khan_
+Marketing_Madam
+gallegosluccil2
+newsmarketeer
+OnlineDealsIN
+newsmarketeer
+Shady535
+gavinkeat
+vishalkalia2
+gregorymckee95
+HITKPKD
+CloudataNow
+newsmarketeer
+8niranjan
+ianburch1994
+sites0512com
+configuroweb
+KharidoCashBLo
+lisamechanick
+ETechAfrica
+tapan_nayak
+grigoriyemeb2m
+SameerArshad1
+VasyKafidoff
+GouravvRock
+irfanshamsi3
+iprotim
+irfanshamsi3
+cvetkovahristi1
+Gillian_Stott_x
+byrdherbert1
+Gillian_Stott_x
+retail_Dbt
+irfanshamsi3
+webjframework
+khairulanuarglo
+iriniivinograd5
+SociativeMojo
+Time taken: 0.367 seconds, Fetched: 703 row(s)
+hive> select get_json_object (str,'$.user.friends_count') as Friends_Count from twitterdata;
+OK
+2458
+1953
+2186
+30
+2512
+208
+4984
+1751
+2186
+0
+1615
+45
+86
+2207
+0
+0
+3647
+0
+0
+30
+3604
+1870
+1751
+128
+119
+103
+2512
+1751
+2960
+6729
+6729
+4997
+782
+2375
+972
+20
+92
+362
+12466
+4577
+1
+4584
+1
+1
+2392
+1344
+78
+2062
+222
+4586
+4997
+32
+1971
+253
+2151
+381
+767
+20
+1951
+114
+4951
+32
+913
+840
+2961
+773
+20
+2961
+4201
+2
+1664
+5200
+3661
+5119
+4120
+3284
+1462
+1462
+438
+2
+49
+151
+768
+18730
+1
+27
+2173
+251
+45
+444
+85
+2541
+2730
+226
+538
+1243
+1462
+1329
+397
+253
+3303
+1805
+20
+2229
+1615
+2062
+49
+32
+248
+1719
+72
+272
+45
+4524
+248
+2062
+49
+6
+668
+1086
+680
+10547
+1550
+10547
+801
+1805
+1462
+397
+81
+3194
+4860
+11
+4860
+4621
+4615
+4715
+5716
+13
+3598
+1058
+1462
+2512
+1219
+514
+154
+632
+1462
+10
+154
+3083
+1805
+6725
+960
+278
+400
+10547
+65
+6128
+2512
+1529
+1530
+1805
+10547
+23
+11
+263
+578
+477
+23393
+440
+66
+49
+32523
+1793
+1805
+1269
+3720
+3386
+52
+216
+20
+3710
+19
+18
+19
+19
+251
+18
+18
+50
+19
+18
+17
+86
+19
+19
+6548
+41
+6513
+4958
+4958
+278
+1953
+621
+1805
+263
+11
+213
+13
+3604
+1891
+13092
+1870
+251
+4808
+0
+4120
+2070
+1639
+529
+2433
+2186
+2304
+1793
+6618
+648
+36
+617
+1861
+1243
+35
+768
+2229
+121
+77
+2923
+515
+80
+208
+67
+58
+9077
+5275
+239
+47
+53
+1192
+864
+9909
+1243
+1054
+35
+2062
+2062
+38
+46
+2923
+3644
+5765
+50
+984
+30
+374
+1323
+75
+3083
+187
+1263
+329
+59
+2923
+2304
+964
+251
+49
+76
+49
+80
+567
+80
+749
+49
+208
+1263
+76
+1898
+49
+1035
+46
+84
+1793
+7
+22
+1446
+2923
+35
+4120
+63466
+454
+124
+3034
+463
+1912
+27
+577
+3378
+1263
+3378
+158
+14
+719
+479
+37
+7
+38
+3550
+1263
+81
+214
+32
+132
+40
+2304
+984
+158
+124
+40
+279
+375
+587
+719
+37
+49
+18
+3150
+30
+739
+415
+587
+240
+54
+7
+225
+149
+29
+1241
+2206
+31082
+587
+4720
+1241
+225
+3605
+282
+137
+1263
+518
+185
+1263
+28
+368
+1263
+43
+415
+1793
+60
+427
+1184
+208
+41
+918
+1192
+89
+1263
+5000
+251
+38
+950
+32696
+115
+1192
+180
+963
+1192
+7
+7603
+668
+375
+1870
+41
+984
+35
+36
+260
+1151
+86
+2863
+56
+37
+524
+111
+24
+76
+985
+376
+23
+953
+487
+376
+8
+1791
+985
+346
+274
+45
+37
+180
+1793
+1793
+81
+36
+0
+227
+2826
+2826
+426
+62
+174
+1871
+49
+34
+21038
+2
+6
+2512
+2512
+3173
+49
+80
+2512
+5072
+1038
+732
+96
+406
+771
+5201
+1527
+0
+72
+4743
+2512
+10898
+260
+3752
+32
+4201
+39
+2460
+4120
+11
+515
+903
+2
+2781
+57
+1884
+1988
+27
+438
+3647
+7
+36
+122
+5527
+1538
+11
+754
+2844
+118
+2
+3661
+11
+175
+1321
+13007
+6122
+180
+984
+37
+1793
+6163
+58
+2782
+38
+1151
+1151
+1436
+278
+4056
+1643
+10795
+3571
+36
+587
+1982
+37
+463
+41
+80
+147
+2349
+1
+1920
+50230
+1933
+8664
+15
+1933
+35
+32
+37
+1933
+1372
+1243
+54
+1550
+1339
+38
+1898
+11144
+1898
+1729
+1729
+3150
+32
+56
+346
+5000
+74
+1898
+358
+35
+1793
+9864
+473
+41
+135
+28
+55
+7
+110
+78
+269
+1898
+74
+677
+4983
+1096
+1793
+60
+36
+4057
+135
+35
+8458
+73
+1550
+4057
+54
+143
+372
+811
+102
+49
+969
+2863
+36
+362
+201
+34
+1849
+1242
+76
+4997
+11597
+5001
+3987
+11172
+5001
+22095
+7904
+894
+525
+37
+3344
+51
+505
+665
+44
+39
+40
+3550
+4808
+4808
+567
+4343
+362
+71
+340
+55
+728
+2062
+908
+1
+42
+1165
+54
+417
+908
+319
+2062
+0
+544
+59
+908
+4808
+4808
+1
+1028
+2863
+739
+1125
+510
+57
+1
+57
+2
+4808
+4808
+2513
+27
+40
+58
+263
+59
+1965
+50
+311
+55
+4808
+3661
+32
+3
+182
+72
+337
+172
+937
+533
+39
+39
+231
+2863
+76
+5226
+81
+53
+3661
+18
+3661
+10301
+39
+1674
+36
+32
+0
+3661
+7482
+33
+255
+11303
+2863
+827
+2497
+278
+40
+654
+383
+2513
+1
+531
+1
+39
+3114
+59
+3114
+2
+1
+28
+111
+38
+7162
+Time taken: 0.292 seconds, Fetched: 703 row(s)
+hive> select get_json_object (str,'$.user.followers_count') as Followers_Count from twitterdata;
+OK
+12696
+2380
+2012
+3
+8702
+6533
+5372
+1095
+2012
+70
+1259
+33
+19
+1327
+0
+0
+6760
+0
+0
+262
+14373
+2667
+1095
+4789
+88
+28
+8702
+1095
+6856
+7882
+7882
+3640
+1093
+2970
+792
+119
+45
+26782
+24677
+2087
+54
+4049
+54
+54
+1058
+1734
+5974
+27875
+162
+3950
+3640
+1199
+4175
+146
+191
+680
+245
+0
+533
+11
+2893
+1198
+705
+840
+21294
+248
+0
+21294
+3684
+11
+2249
+6959
+3435
+5762
+9005
+5534
+12215
+12215
+68
+11
+49
+1645
+3568
+20868
+47
+55
+1721
+383
+33
+151
+54
+20798
+2358
+5692
+42
+1862
+12215
+1417
+14249
+146
+3614
+4136
+119
+11595
+1259
+27876
+49
+1199
+1177
+1234
+166
+264
+2022
+4385
+1177
+27876
+49
+3
+1572
+136
+49
+11477
+1576
+11477
+2649
+4136
+12215
+14249
+6684
+5285
+4219
+19
+4219
+7984
+5953
+4739
+6186
+51
+3545
+9369
+12215
+8702
+10417
+721
+24882
+349
+12215
+311
+24882
+3102
+4136
+11855
+1557
+79
+546
+11477
+503
+6687
+8702
+3963
+3963
+4136
+11477
+22
+19
+229
+21759
+12
+25173
+232
+69
+49
+38129
+3503
+4136
+3625
+15797
+6009
+11
+479
+47
+5719
+15
+31
+7
+5
+194
+3
+16
+48
+10
+4
+5
+29
+9
+4
+5892
+752
+6044
+803
+803
+79
+1104
+1381
+4136
+334
+19
+121
+51
+14373
+2079
+14535
+2668
+194
+5658
+146
+9004
+1395
+1842
+382
+2495
+2012
+1550
+3503
+9385
+24428
+3
+426
+1156
+16192
+10
+3568
+11595
+96
+21
+1682
+547
+22
+6533
+29040
+5
+9582
+5585
+29040
+12
+12
+3268
+676
+11501
+16192
+412
+5
+27875
+27875
+4
+26050
+1682
+17858
+6400
+8
+1400
+3
+82
+1869
+6
+3104
+271
+73
+392
+5
+1682
+1551
+14008
+194
+49
+15
+49
+6
+9736
+6
+210
+49
+6533
+73
+7
+1108
+49
+345
+5
+68
+3503
+4
+20
+5558
+1682
+1
+9004
+84027
+6299
+49
+854
+2506
+4375
+5
+1211
+2059
+73
+2059
+290
+5
+177
+6388
+10
+4
+7
+7424
+73
+8
+49
+1200
+3
+3
+1551
+1400
+290
+49
+5
+345
+341
+390
+177
+7
+49
+23
+1984
+41
+2917
+2382
+390
+41
+93
+1
+48
+49
+5
+1996
+2124
+28255
+390
+6498
+1996
+48
+14373
+100116
+13
+73
+50
+213
+73
+29
+1479
+73
+3
+66
+3503
+9
+93
+652
+6533
+3
+1180
+3268
+1005
+73
+144
+194
+10
+286
+32407
+5
+3268
+392
+1148
+3268
+4
+14997
+412
+341
+927
+7
+1400
+9
+65
+9422
+949
+32
+341
+640
+11
+551
+40
+21
+91
+2085
+484
+34
+2083
+10730
+484
+639
+634
+2085
+145
+27
+4
+7
+392
+3503
+3503
+40
+12
+23
+242
+2796
+2796
+263
+16
+30
+2668
+49
+4
+21220
+269
+0
+8701
+8701
+3540
+49
+5
+8701
+4750
+817
+893
+24
+10232
+450
+6961
+2251
+9
+18
+1570
+8701
+11068
+9422
+462
+1200
+3685
+3
+9458
+9005
+19
+536
+489
+254
+4742
+11
+72
+1177
+32301
+1030
+6760
+2
+5
+28
+5171
+1418
+11
+1627
+4267
+162
+254
+3434
+19
+69
+1282
+27426
+5611
+392
+1400
+10
+3503
+14198
+4
+1677
+6
+461
+461
+1053
+78
+4991
+1489
+21961
+4131
+6
+390
+2527
+4
+2506
+2
+22
+123
+2486
+54
+3661
+67637
+1537
+9961
+5
+1537
+2
+1200
+3
+1537
+155
+16192
+93
+1576
+1275
+6
+1108
+11384
+1108
+16422
+16422
+1984
+1200
+4
+8452
+1758
+14
+1108
+969
+3
+3503
+9414
+797
+1205
+848
+4
+6
+2
+16
+47
+240
+1108
+13
+59
+3611
+706
+3503
+3
+4
+4991
+12
+5
+13742
+4
+1575
+4991
+12
+64
+647
+951
+217
+38
+659
+341
+7
+26782
+56
+5
+90961
+628
+15
+4229
+14620
+4347
+2119
+11889
+3148
+33561
+8742
+740
+646
+8
+1080
+6
+233
+1050
+100
+3
+156
+3862
+5658
+5658
+1396
+5768
+26781
+7
+550
+5
+162
+27877
+490
+0
+121
+1569
+9
+71
+490
+198
+27877
+0
+6151
+5
+490
+5658
+5658
+0
+5107
+341
+2920
+1123
+228
+7
+0
+7
+254
+5658
+5658
+8702
+4
+106
+93
+92
+4
+1109
+9
+1308
+6
+5658
+3434
+1201
+208
+116
+11
+206
+58
+154
+659
+7
+4
+140
+341
+5
+4712
+85
+3
+3434
+5462
+3434
+25930
+6
+5849
+5
+1201
+857
+3434
+7080
+3
+536
+14187
+341
+528
+2884
+79
+1
+1531
+350
+8702
+0
+2626
+0
+6
+3137
+2
+3137
+254
+0
+417
+31
+5
+6924
+Time taken: 0.385 seconds, Fetched: 703 row(s)
+hive> select get_json_object (str,'$.text') as Body from twitterdata;
+OK
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @PDM9: Trump vs. Clinton. Welke presidentskandidaat heeft de beste online marketing aanpak? https://t.co/9IF2nKET72 by @bloovi
+RT @lady_gabbar: So, the #Flipkartfreedomsale is on &amp; I need some help. If you help me shop, I'll give 5 of you flipkart vouchers worth Rs.…
+#Sandisk #Cruzer Blade 16 GB #Utility #Pendrive Flat 35% Off https://t.co/xNE5LsHqww https://t.co/nZZeWlmezL
+@JatinKiDuniya you should buy all these things in your budget RS. 27000 
+@Flipkart #FlipkartFreedomSale https://t.co/YQ3EtKk2DS
+@JatinKiDuniya @Flipkart go for Lenovo k5 note and maxima watch, woodland shoes, HD n skybags  #FlipkartFreedomSale https://t.co/7rfP3CDeoW
+VACATURE: STAGIAIR VIDEOMARKETING. Heb jij een passie voor video en online marketing? Kom dan ons marketing team versterken! #stage #video
+@AyeNuMe @Flipkart #FlipkartFreedomSale https://t.co/8toGDqPMzU
+RT @lady_gabbar: My budget is equal to my followers-count. Tell me which earphones, mobile and hardisk should I buy from @flipkart? #Flipka…
+Social Media Marketing for picking up clients online (FULL TUTORIAL) Facebook Reddit YouTube https://t.co/fyiJHuloLA https://t.co/juwSw2qzNp
+RT @bennchi2010: Einkommen -  https://t.co/BNAAKoiXw0 Der Online Marketing Club von Thomas Klußmann https://t.co/V2ShOaX3PD
+Hey vivek i wanna suggest you....u have to  complaint in consumer form..@Flipkart @vsvivekgautam https://t.co/7am81VkWvf
+RT @yunbitsoftware: TODO EN UNO
+  Gestión de webs y tiendas online
+  Marketing y promociones
+  Finanzas
+  Logística
+  Analítica y más https…
+The latest  Billyqb Online Advertising ! https://t.co/2p4Fu18ijO Thanks to @HeaIthyTlPS @FirebaughNorman @LaCapital_ #marketing #advertising
+#CatchMyCoupon -  Flipkart - Laurels, HawaiShop... Minimum 40% Off: Flipkart - Laurels,… https://t.co/kd3bt1xZfF https://t.co/4Q6DjU4Y7a
+#CatchMyCoupon -  Flipkart - iPro Just at Rs.699: Flipkart - iPro Just at Rs.699Offer… https://t.co/rbPp2WsU5m https://t.co/YP3p9Rs29a
+RT @HITKPKD: @priyalpoddar That’s a cool way of killing mosquitoes!. Keep sharing more ways to win Flipkart vouchers! #HitToKill https://t.…
+#CatchMyCoupon -  Flipkart - SanDisk Just at Rs.249: Flipkart - SanDisk Just at Rs.249Offer… https://t.co/vejZn6DnfN https://t.co/eeM7WXxtQG
+#CatchMyCoupon -  Flipkart - Jeans, Shirts... Alan Jones, Duke...: Flipkart - Jeans,… https://t.co/vu5kv5MRjc https://t.co/4Dc7EVlCq0
+Flipkart shares marked up 10% by Valic, co now valued at $11.6 bn https://t.co/gqZoKGZkkS
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale These products in pics &amp; Adidas DURAMO 7 shoe 
+https://t.co/WXmcqrijkE https://t.co/u6VaClLmDU
+@AyeNuMe @Flipkart #FlipkartFreedomSale https://t.co/3eIuEWRRpF
+The best powerbank at best price
+@JatinKiDuniya @Flipkart i have suggested all!
+Nd you cn buy even more wid #FlipkartFreedomSale 
+They are great,
+Best thing wid great price!
+Flipkart valuation seen at $11.5 billion after Valic markup https://t.co/03u89PCKd1
+RT @deustoformacion: Cómo mejorar la reputación de tu tienda online: https://t.co/1Uvqf8hApm #orm #marketing https://t.co/9Ohp5MhIB6
+@JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+@AyeNuMe @Flipkart #FlipkartFreedomSale https://t.co/xj2F78n7Ht
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Online Marketing Firm, fishbat, Reveals 4 Ways to Market with Snapchat:  https://t.co/ncBlZgb2jF #OnlineMarketing
+Affiliate Marketing as an Online Business Model:  https://t.co/cJ4bRgzXpa #OnlineMarketing
+JBL T250SI On-the-ear Headphone For Rs 749 ( 70% OFF ) Flipkart... https://t.co/b8T2LqnB3V
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/b5ebaWGNDv
+What happens online in 60 seconds? https://t.co/Yxj2oF4yZx #marketing
+What with #socialmedia and #socialcontentmarketing - your online content has never been more important https://t.co/Na0j3uKIsW #SEO
+JBL FLIP 3 (4.1 Channel) Portable #Bluetooth #speaker Just Rs.8031 – @Flipkart 
+
+#DailyDeal
+
+https://t.co/04MzqMSH7n https://t.co/bVuiYFV90Q
+RT @HITKPKD: @priyalpoddar That’s a cool way of killing mosquitoes!. Keep sharing more ways to win Flipkart vouchers! #HitToKill https://t.…
+@Phrustated Here #FlipkartFreedomSale https://t.co/S6BuiWnAyC
+Cómo Crear una Tienda Online de Éxito por Rebeldes Marketing Online [vídeo]  ¿Valoraciones? https://t.co/f4SZ5CR3H3
+Online Marketing Manager #Internet marketing, social media https://t.co/sTaFI9rxvp https://t.co/n6pcL3K1zx
+Intex Cloud String v2 Rs. 999 (Exchange) or Rs. 5399 (HDFC Credit Cards) or Rs. 5999 – Flipkart https://t.co/MpO2WBSikx #DealzBasket #deal…
+Online Marketing Manager #Internet marketing, social media https://t.co/77jrZdoPX3 https://t.co/4FiCp4hnA8
+Samsung Galaxy Note 4 Rs. 12900 (Exchange) or Rs. 26400 (HDFC Credit Cards) or Rs. 27900 – Flipkart https://t.co/RnfpSza2IM #DealzBasket #…
+Oster Panini Maker and Grill CKSTPM129 Rs. 2631 – FlipKart https://t.co/wZGfXiIfyx #DealzBasket #dealoftheday #OnlineDeals #Coupons #Promo…
+Online Marketing Manager #Internet marketing, social media https://t.co/YTCGeJzld3 https://t.co/R7RYQfVmw0
+Online Marketing Manager #Internet marketing, social media https://t.co/5m9WigGNVq https://t.co/oXSR6gikms
+https://t.co/ul00ZGuWnI - Registered at https://t.co/8aAJt0ShGU https://t.co/TI8WbfWRBm #Marketing #DomainNames #WebsiteRank #statvoo
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+RT @Inc42: Respite For @Flipkart: US Fund Valic Marks Up Its Valuation By 10%
+https://t.co/PMNs5du83d
+Popular SEO Site Promotes Seo Conferences For Online Marketing Enthusiasts: An Internet Marketing site is bec... https://t.co/oX4ux7suII
+JBL T250SI On-the-ear Headphone For Rs 749 ( 70% OFF ) Flipkart: Flipkart Offering JBL… https://t.co/tKy8icX4Vo
+@ankita655 Interesting, you gotta kill em’ all. Share more ways to win flipkart vouchers #HitToKill https://t.co/y8iavzP1UA
+RT @ipfconline1: Content is a back bone for online marketing #DigitalMarketing #SocialMediaMarketing  https://t.co/gJ0pRC14KS https://t.co/…
+@vsvivekgautam @flipkartsupport ☺☺☺☺☺ have you got your product.. https://t.co/tUKedzPPke
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/Z39eovln9F
+AUTOBLOGGING for BLOGGER BLOGSPOT https://t.co/5s5rfqTgJZ #ContentMarketing | Online Marketing Why You Will Be Disappointed With The New…
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/iJS8SH0udA
+@lady_gabbar @Phrustated @Flipkart Hi
+tutorial internet marketing dan bisnis online gratis terbaik dan update saat ini… https://t.co/AQEXlKuEXE https://t.co/RtRPGrSeVz
+@Flipkart congrats guy's
+Five Fatal #DigitalMarketing #Management Mistakes  https://t.co/FZ5s7YUfES #SocialMedia #Marketing #SEO #CX #SMM https://t.co/O9r2QUbZOZ
+@Born2bAwsome is taking the mosquito killing game up a notch! Share more ways to win Flipkart vouchers. #HitToKill https://t.co/FmYbyPE8r3
+YS Research: Making sense of Flipkart’s and Snapdeal’s valuations through their GMV https://t.co/nlill5wPHV via @YourStoryCo
+RT @Dating_SEO: What with #socialmedia and #socialcontentmarketing - your online content has never been more important https://t.co/Na0j3uK…
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Our CEO @anil_491 writes on e-tailing. #RedSeerImpact #ecommerce #India2020 #flipkart #snapdeal #amazon 
+Read it -
+https://t.co/FPTZ4MZfcn
+@lady_gabbar @Phrustated @Flipkart Reply
+RT @JatinKiDuniya: #FlipkartFreedomSale is on &amp; I am giving 5 flipkart vouchers of 1k each to 5 followers. All u got to do is help me out!…
+How To Perform an #SEO Audit &amp; Website Analysis: Checklists + Tools. https://t.co/OlmOOOZEbC #socialmedia #marketing #smm #strategy #online
+I added a video to a @YouTube playlist https://t.co/QRit839wr1 Online Marketing Advertisement || Turned Twins Technology
+RT @PAF17: 5️⃣ pasos para Crear tu Curso Online 🖥
+
+🔶 https://t.co/Prd3NC4Xhq
+
+#CursosOnline #Marketing #MarcaPersonal https://t.co/qbpQ2WmD…
+A 27-Day Online Marketing Plan For Your Small Business https://t.co/avVJESAEBC https://t.co/kdbWi93UsU
+Classic FM breidt uit met Chill Out, Opera en Soundtracks #Online #Marketing https://t.co/1cOOGYoMek
+Reasons Why You Should Use #Google+ for #OnlineMarketing. Read: https://t.co/HfSsbJXJ1V #digitalmarketing #SMO #SEO https://t.co/Idpxjtn5dp
+Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/cUCW2l2hkv
+Final few Seats left: Book Yours NOW #socialmedia #digitalmarketing #learnsomethingneweveryday https://t.co/lpcx9z7SOY
+RT @JatinKiDuniya: #FlipkartFreedomSale is on &amp; I am giving 5 flipkart vouchers of 1k each to 5 followers. All u got to do is help me out!…
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Timely Advice On How To Start An Web Marketing Plan: Web marketing is a great way to make money online. The t... https://t.co/eCyYGYD4lQ
+Promote Your Business Via Online Marketing. Get More Filtered Leads &amp; Build Your Brand. Call Us To Know... https://t.co/QRit839wr1
+The 6 Biggest E https://t.co/guy2tZTRr3 #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/XQFVoAIbo1
+10 per cent markup by Valic gives @Flipkart reason to cheer https://t.co/Jbu7CICqa9 @MorganStanley @binnybansal
+Kenstar KTG02KGP-DBH Grill at Rs. 599 (mrp 1295) @Flipkart 
+
+https://t.co/VmR4xoSnhZ
+
+- https://t.co/Jy4K1THwIj
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente... https://t.co/Quhzr1xux4 @infoautonomos
+The advantages regarding fixed marketing online: soZr
+We build online store with digital marketing strategy that engaged your customers better https://t.co/67dVk1KUVC https://t.co/sqiFfmzDTm
+Die wichtigsten Online Marketing Studien auf unserem DIM-Blog! https://t.co/1ogYvO1v6Q
+RT @pretwerk: Eerste online marketing cursus vergoed door Sociaal Fonds Recreatie https://t.co/yD9sxhhCCT @KIKK_recreatie @REDonlineNL
+Hey vivek for solution file a complaint in consumer fourm ....@Flipkart @vsvivekgautam https://t.co/xPJ6DNFoY5
+@Dhananjay_Tech @Flipkart 😱😰
+#jobs #yoursearch # #Online Marketing Intern/Working Student (m/f):  
+           #Bayern-München, Experteer i... https://t.co/NlA9ccEJst
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+The latest Earwax Online Marketing! https://t.co/cZCt83aF2g Thanks to @JanetBrent @robertlburns @prbts5662 #onlinemarketing #marketing
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/svYBccA8sS
+RT @GeDesPi: A 27-Day Online Marketing Plan For Your Small Business https://t.co/avVJESAEBC https://t.co/kdbWi93UsU
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+Your Wishlist in 27K from #FlipkartFreedomSale https://t.co/0OyWUav9rY
+Effective Ways For Successful Online Marketing https://t.co/xalFxf64HJ
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+RT @agnidj507: Hey vivek for solution file a complaint in consumer fourm ....@Flipkart @vsvivekgautam https://t.co/xPJ6DNFoY5
+The way an online marketing system should be #homebusinss #networkmarketing #onlinebusiness #moneyfromhome https://t.co/etKBg1cSSg
+@JatinKiDuniya @Flipkart These shoes looking cool, hope you like it. #FlipkartFreedomSale https://t.co/7ysertcvyJ
+Intex Cloud String v2.0 #mobile 16 GB just Rs.5999 @Flipkart
+
+#smartphone #deals #DailyDeal
+
+https://t.co/dvpJvleq8o https://t.co/p3BrMZ07Mp
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Einkommen -  https://t.co/LXmifI6dPv Einkommen -  https://t.co/BNAAKoiXw0  Der Online Marketing Club von Thomas Klu
+RT @Pooja__G: @JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+Your Wishlist in 27K from #FlipkartFreedomSale https://t…
+Is Your Writing https://t.co/ek4UBADhhQ #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/1Lf8PuxfjN
+@JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4sR0eGc
+RT @pal36: My budget is same as my follower count n I want to buy t-shirts,watch,mobile n a book frm @Flipkart.Tell me what to buy #Flipkar…
+Small Businesses Need an Online and an Offline Marketing St... https://t.co/JgB18hHboB | https://t.co/GYWfqYdNA0 https://t.co/tH9CfWwqJg
+RT @digitindia: The Kodak TVs start at Rs13,500 and will be available at shopclues, Amazon, Flipkart
+The Perfect Formula for an 'All-in-1' Online Marketing Strategy https://t.co/7tPhQSQfVg
+6 Key Variables You Must Track in Your Marketing Campaigns https://t.co/yrMagfEg4h
+Six Tips for Using Psychology in #Online #Marketing https://t.co/gLsBSAcbvn
+RT @pal36: I am giving away 5 flipkart vouchers of Rs. 1000 each as #FlipkartFreedomSale is ON. Are you ready to help me out and win? Say A…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+Shareasale Revi https://t.co/fjgjDRrifT #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/o2petUHdVv
+Comment on 13 Trik Memaksimalkan Online Marketing B2C Melalui Social Media by Penyembuhan: ... https://t.co/Q1KQmmZ8wW #Komentar @Jhez3R
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @GdnSmallBiz: Why online video is the future of content marketing https://t.co/gc3cTrDcYM
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/zLb9SeHwef
+RT @JatinKiDuniya: #FlipkartFreedomSale is on &amp; I am giving 5 flipkart vouchers of 1k each to 5 followers. All u got to do is help me out!…
+Generate TERGETED traffic to your website AUTOMATICALLY https://t.co/KCSg5YJV5P #contents #RSS Your New Toolkit: Top Online Marketing Tools…
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @SocialHeat_DE: Unterstütze uns als Texter im Online Marketing | Projecter - https://t.co/BuERu0doAn via @projecter
+@JatinKiDuniya @Flipkart This watch looks professional as well as stylish #FlipkartFreedomSale https://t.co/XlO1sblqbN
+@JatinKiDuniya @Flipkart 
+Samsung Galaxy J7
+Reebok Shoes
+Seagate 1TB HDD
+Tommy Hilfiger Bag
+#FlipkartFreedomSale https://t.co/QVfnhC8vlt
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+Online political marketing https://t.co/nT9l7vGIab
+RT @GeDesPi: A 27-Day Online Marketing Plan For Your Small Business https://t.co/avVJESAEBC https://t.co/kdbWi93UsU
+We have the skills to nurture, protect and maintain your #brand #philosophy online.  #branding #digital #marketing https://t.co/1WKIGjtwwS
+Microsoft Xbox 360 E 4 GB for Rs. 10999.0 at Flipkart https://t.co/CjuJW1HBNQ
+RT @CorpStation: We have the skills to nurture, protect and maintain your #brand #philosophy online.  #branding #digital #marketing https:/…
+CAIT writes to DIPP citing FDI voilation by e-commerce marketplaces like Flipkart and Amazon: KOLKATA: The Co... https://t.co/LeAc5SozP2
+CAIT writes to DIPP citing FDI voilation by e-commerce marketplaces like Flipkart and Amazon: KOLKATA: The Co... https://t.co/UGd67CLZ3W
+CAIT writes to DIPP citing FDI voilation by e-commerce marketplaces like Flipkart and Amazon: KOLKATA: The Co... https://t.co/6K4eMd8XwE
+CAIT writes to DIPP citing FDI voilation by e-commerce marketplaces like Flipkart and Amazon: KOLKATA: The Co... https://t.co/f0bGf4pMUc
+How to get this deal Click here to go to Flipkart. Buy now for Rs 10990 Get additional 10% off with HDFC credit... https://t.co/EIBguMT8o7
+CAIT writes to DIPP citing FDI voilation by e-commerce marketplaces like Flipkart and Amazon: KOLKATA: The Co... https://t.co/dtHXdvOEoA
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale
+
+Samsung Galaxy J7
+Reebok Shoes
+Seagate 1TB HDD
+Tommy Hilfiger Bag https://t.co/qfBZ3ifrdW
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale here is all your favourite products on best discounts steal the deal https://t.co/6tilsCPp0R
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/iItevj6fBg #MarketingOnline
+RT @CashmintIN: Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/egC98TqNjO
+@Madan_Chikna @Flipkart jab cellphone le rahe ho toh watch mat lo
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale
+
+Samsung Galaxy J7
+Reebok Shoes
+Seagate 1TB
+Tommy Hilfiger Bag
+In 27K https://t.co/H7pjMFyow2
+Read This Book https://t.co/EHkhyaVGR8 #0502 Real Estate Marketing Strategy Academy Online Course https://t.co/GybACbaRxO
+RT @CashmintIN: Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/VRkuxrB9sn
+¿Por qué fracasan la mayoría de las tiendas Online? - Marketing Online para PYMES [vídeo] https://t.co/yIDx2ojyx5
+@JatinKiDuniya @Flipkart I'll suggest you to buy this hard disk. It's really great. #FlipkartFreedomSale https://t.co/LQZBrwomkS
+EMAIL US DopeMuzikPromo@Gmail.com | PROFESSIONAL ONLINE MARKETING #PROMOTION
+RT @KanyesigyeJames: Today I embark on Online Marketing! Rich people kindly fall into my mentions 😭
+@Flipkart @flipkartsupport still the same occurs.... Please see below screen grab. https://t.co/T0u9xcqgac
+Flipkart’s Valuation Trimmed Down By Morgan Stanley To $11 Billion; 2 Possible Reasons Which Justify This Move https://t.co/4QBslqm0HN
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale 
+Total is 27012 
+Fastrack NG3089NM01C
+Puma Silicis
+American Tourister https://t.co/bsUcmuUIt8
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/R47fG5kjaj
+RT @SmartInsights: What happens online in 60 seconds? https://t.co/5wasjXR8HZ https://t.co/gUQVt6IXDL
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @bouncehelps: The Perfect Formula for an 'All-in-1' Online Marketing Strategy
+
+https://t.co/ViOipGFz59
+RT @priteshpatel9: Blur Group's share price chart over 3 years is mind boggling. (Online marketing services exchange) https://t.co/Sq36jChi…
+@JatinKiDuniya @Flipkart I'll suggest this mobile, it's performance is really super. #FlipkartFreedomSale https://t.co/sVEFKosTHO
+@JatinKiDuniya @Flipkart Check this deal: #FlipkartFreedomSale 
+Lumia 640. #InBudgest https://t.co/9yJgTVTLN7
+@Flipkart site hanging like @IRCTC_Ltd  site during #Tatkal booking timings. Do V smell a scam?
+Silverlit Dragon Mac Set – Wireless Remote Control(Multicolor) for Rs. 1017.0 at https://t.co/dq3vzG4OKU https://t.co/qRivr5KCEH
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/0HRKgCsoBB
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/OoLCzs73uW https://t.co/SzGk0xfedU
+Agencia de  marketing digital online, #SEO #Marketing https://t.co/jQE9gqDymq
+Network Marketing Strategies: How to Build Online – Part 1 https://t.co/WncA4VmFMp https://t.co/IbvrF6igWH
+Bekend met Beacons? Wordt dit de nieuwe manier van marketing? "Persoonlijke" benadering? Brengt dit de online en... https://t.co/GipB9FqaUA
+RT @247paydayguide: Learn How to Make Money online https://t.co/eaUAbeN9zK
+#money #marketing #entrepreneur #mlm #business #startup https://…
+Exploring Onlin https://t.co/uWCR4E78Sa #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/EwA2m3LFYA
+Buy some flip-flops and... done. https://t.co/wijHi79heg
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @jktshop_id
+@JatinKiDuniya @Flipkart This backpack is looking cool, you can choose your favourite colour. #FlipkartFreedomSale https://t.co/zGJrCPLZ6X
+@MyXOLO 
+Oho flipkart selling products f fake company lolz
+RT @HITKPKD: @priyalpoddar That’s a cool way of killing mosquitoes!. Keep sharing more ways to win Flipkart vouchers! #HitToKill https://t.…
+Don't miss the opportunity to win Flipkart vouchers.Be a part of #HitToKill contest nd win big with @HITKPKD .Visit https://t.co/IU6pZXzOKv
+RT @savemoneyindiaa: Flipkart – Buy Marvo Scorpion Unicorn Wired Headset at Rs 674 only https://t.co/rfTqw4giLZ https://t.co/xk6w3DWchs
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @mrjintheuk: Buy some flip-flops and... done. https://t.co/wijHi79heg
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+Real-time updates for https://t.co/3tRK45n8lU online marketing strategy. https://t.co/wbgHxJnfMp
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+Reliance LYF Flame 8, Wind 3 on Flipkart; offers Jio 4G SIM with free data - The Indian Express https://t.co/KQm9nrEDuf
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/h5GWPkAezD https://t.co/txvNgrgZjZ
+can't visit flipkart,Amazon at same so compare prices in @9Appscom it is wonderful buy with peaceful mind #ShopForLesswith9Apps
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/VW8bVhmUk0
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/7yFr4GABBt
+@Flipkart @flipkartsupport also in new incognito window https://t.co/fiZ5NYSNRU
+Best Article generator online https://t.co/UxWVW1unMx its FREE! #blogger #BlogTool Affiliate Marketing as an Online Business Model
+Online Advertising As A Tool Of Brand Awareness: Marketing for products is an evident extension of this evolu... https://t.co/1rVixWZYjy
+@jatinkiduniya @flipkart Hope you like the products I suggest. #FlipkartFreedomSale
+@manukumarjain @flipkart
+@xiaomiindia when #Redmi3S
+(6999) model available?
+Fisher Price Silly Sounds Puzzle(6 Pieces) for Rs. 699.0 at Flipkart https://t.co/9FKm2BHwBj
+@flipkartsupport Enough of cheating us now. Can't take anymore chasing since months for our money but helpless. Flipkart is a mere scam
+How to get this deal Click here to go to Flipkart. Buy now for Rs 699/- Bank Offer:- Extra 15% off with digibank... https://t.co/otgmDZj1cx
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale 27000 https://t.co/PGl5eC1012
+My budget is 45k &amp; I want to buy Mobile, Laptop, shoes &amp; watch which one should I buy from @flipkart? #FlipkartFreedomSale @SushmaSwaraj
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/q8p9qqASgH #marketingdigital
+@JatinKiDuniya @Flipkart Here you go. Buy these branded, colorful and quality products from #FlipkartFreedomSale https://t.co/gkuj6ehdWK
+Real-time updates for https://t.co/2GKtRx1joh online marketing strategy. https://t.co/9fQoh2YYAV
+RT @valukind: Online Advertising As A Tool Of Brand Awareness: Marketing for products is an evident extension of this evolu... https://t.co…
+Apple iPad Air 2 Wi-Fi 16 GB Tablet (Gold) worth Rs. 30990 for Rs. 27990 - Flipkart
+
+Link ===&gt;... https://t.co/ut8bs3XOqy
+Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/EfOz4q7vCp
+Web Traffic generator, REAL traffic to your website! https://t.co/ogja0x4nwE #autoblogging #news GetResponse: Online Marketing Tool That…
+https://t.co/RNLCqnBj5F https://t.co/svljuy5VjX convert partial rss to FULL RSS! #WordPress #SEO Your New Toolkit: Top Online Marketing…
+RT @ConeyDataDriven: VACATURE: STAGIAIR VIDEOMARKETING. Heb je een passie voor video en online marketing? Kom dan #stage lopen bij Coney! h…
+RT @pureresiduals: Mastering Online Lead Generation
+https://t.co/5U2JbYXkkq
+#leads #leadgeneration #marketing https://t.co/W8TvqCIqSz
+@lady_gabbar @Flipkart #FlipkartFreedomSale Here's what i suggest https://t.co/oJJsp4V9mK
+#jobs #Schleswig-Holstein #Marketing-Manager (m/w) Online / Offline Standort Rothenburg o.d. Tauber:  
+      ... https://t.co/vDvVOfi7Ia
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @AdsJualbeli
+Marketing a Self Published Book Online https://t.co/W5uT4mYdkE #authors #marketing #selfpublishedbooks
+@JatinKiDuniya @flipkart #FlipkartFreedomSale https://t.co/UwNILN8EnX
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @presenter: Wanted: medior contentspecialist met ervaring in online marketing https://t.co/p14wKK1ezA #vacature
+RT @OffersXpIndia: #Flipkart Minimum 40% OFF on Men's Clothing | Shirts, Jeans &amp; More https://t.co/Q7CeQterCb
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Lenovo Vibe K5 Plus at Rs. 7,499 + 10% off with HDFC Cards @Flipkart 
+
+https://t.co/Y9p3kfJM7F
+- https://t.co/rH94OZbGhP
+@JatinKiDuniya @Flipkart 
+Mobile: Le2
+Harddisk: HP 1TB
+Backpack: AT
+Shoes: Puma
+Watch: Gshock #FlipkartFreedomSale https://t.co/7OjgnqoL5A
+The Perfect Formula for an 'All-in-1' Online Marketing Strategy https://t.co/H6mH4RVzvz
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Lowongan Marketing Online Suzuki | SUZUKI SUMBER BARU https://t.co/Tkszcdwsfp
+Pulpmedia verstärkt die Bereiche Influencer Marketing und Public Relations: Linzer Online... https://t.co/VuR1zjq1MM Pressetext Business
+Ten Reasons Why Having An Excellent Online Marketing Is Not Enough https://t.co/zSe5kLeErM
+@JatinKiDuniya @flipkart go for citizen CA4015-54E analog watch  #FlipkartFreedomSale https://t.co/GS2aiIcUuD
+@JatinKiDuniya @flipkart #FlipkartFreedomSale https://t.co/GLVrDDfLR7
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Digital Marketing Jobs in #california - search online and apply today! https://t.co/xn0rJ41gXI #marketing https://t.co/YxNoGCJS8T
+10 Online Marketing Tools to Pay for if You Are Taking Your Site Seriously https://t.co/0YHz5uZ4k4 via @Ileane
+@JatinKiDuniya @flipkart #FlipkartFreedomSale https://t.co/L2ZAis8tuo
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/t6YgpQ1upY
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Flipkart Freedom Sale 2016 best smartphones
+https://t.co/ItIxyYeJWx https://t.co/GnW9AImWFM
+RT @buldurgan: Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/k4TCs1utHe
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale buy Samsung j7 , sky bags bagpack, Adidas shoes . fossil watch 4552l and transcend 500
+#n9 -  Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders… https://t.co/F7yld51R57 Follow me on @Rikins https://t.co/HnlbMY0kVn
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @AnkurGoesSocial: @JatinKiDuniya @flipkart #FlipkartFreedomSale https://t.co/GLVrDDfLR7
+RT @ModelGarima: @JatinKiDuniya @flipkart go for citizen CA4015-54E analog watch  #FlipkartFreedomSale https://t.co/GS2aiIcUuD
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@JatinKiDuniya @flipkart #FlipkartFreedomSale how is it? https://t.co/52EmU2AvFX
+Lowongan Marketing Online Suzuki | SUZUKI SUMBER BARU https://t.co/307L6yQGCQ
+#JVCDealoftheDay 
+Available at a 40% off at @flipkart 
+Go n buy all awesome deals 
+https://t.co/zCV9a0w1ZL
+@JVCIndia
+Small Businesses Need an #Online and an #Offline #Marketing Strategy ~ https://t.co/YYBSBnHSEz #Entrepreneur #SmallBiz via @Entrepreneur
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) : https://t.co/lklzQfj9iF https://t.co/3vklzyqctM
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+#Google #technology will be used at @EnvircSolutions now. #Envirc #webdesign #startup https://t.co/Fnjd2cUplY
+@Flipkart Cool✌🏻
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Cómo Crear una Tienda Online de Éxito por Rebeldes Marketing Online [vídeo] https://t.co/MkEpTqi54H
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT -  https://t.co/ykSC2zqy59
+@iTIGERSHROFF @HRITHIK Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+Local Digital Marketing for Online Companies https://t.co/it4KcU7hpR #socialmediaadvertising
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Lowongan Marketing Online Suzuki | SUZUKI SUMBER BARU https://t.co/iU5BdqP2ff
+#jobs #Sachsen-Anhalt #Marketing-Manager (m/w) Online / Offline Standort Rothenburg o.d. Tauber:  
+          ... https://t.co/R6n1NUU4pi
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Real-time updates for https://t.co/ej95ApVs2q (@eracentral) online marketing strategy. https://t.co/uTAuBjZ7QI
+Reinventing SEO https://t.co/FF0lf8vUIO #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/DYAIUryAAt
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Guide To Optimi https://t.co/CN2JnrzOUV #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/Y1WAPUfLAe
+Buy LYF FLAME 8 with JIO Preview Offer at Rs.4199 – Flipkart (Free Unlimited 4G) https://t.co/awuxnqZhj5
+Junior Online-Marketing Manager (m/w) // feelix GmbH
+https://t.co/J0WyHZyin4
+#berlin #jobs #marketing
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) https://t.co/dGm219Z2eQ
+@radiocityindia  
+@ONGC_ 
+9A) True ✅✔
+#ONGCDiamondJubliee
+@Flipkart @erpratik68 @tommycoy123 @jeetu4306gmail1 @zakirislam10 @banksy415
+Restoring Firef https://t.co/fqk5lOtxuz #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/NxjrwnOO69
+@JatinKiDuniya @Flipkart also you can opt for Mi max for mobile and Armani exchange AR18281 #FlipkartFreedomSale https://t.co/46hOspqDuc
+@arjunk26 @iHrithik @hegdepooja Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !!
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Flipkart Air Conditioners Upto 16,000 Off - https://t.co/jXqJVpRCpx https://t.co/cfRAD8igQ2
+How Unbounce’ https://t.co/EGa5YIQ2Oh #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/9Yqwg0j5pN
+@Flipkart superb #TrendingOnFlipkart
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/FYKVP4SazL
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @iklanin
+https://t.co/gpjm0eDJVK
+Santa Eulalia tienda online: opiniones y valoración - Marketing 4 eCommerce https://t.co/oZX6ynT42L
+#FlipkartOffers Chk https://t.co/XoTX552Cbp https://t.co/PD37KT7HoV Flipkart: Dive into a galaxy of entertainment w/ the Samsung Galaxy J…
+Lowongan Marketing Online Suzuki | SUZUKI SUMBER BARU https://t.co/nIBVCxk54n
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/iYyfx6vXxh
+Advanced economy nations have high rates of online marketing of stem cell thera https://t.co/u9fgcAmGFJ https://t.co/3rGpTknpqL
+@sundaaraajaa dont know her name she acted in VaniRani serial and some online TV Marketing..
+https://t.co/9CBqhHfipd Health &amp; Baby Toiletries, USA FDA approved, on Amazon, Snapdeal, Flipkart &amp; Mumbai 22018671 https://t.co/RmSZA4Bhr1
+@Flipkart @flipkartsupport interested in the leeco super tv. Any1 will come for the installation and who will handle the aftersales service?
+RT @Fuljhadii: @lady_gabbar @flipkart you can buy:
+1. https://t.co/2OucFEg5Ff 
+2. https://t.co/y3wOgzDuV1
+3. https://t.co/6DfNd9g3vz
+#Flipk…
+. @JatinKiDuniya #FlipkartFreedomSale is here buddy.. So by these awesome stuff from @Flipkart now. https://t.co/DE4UrNxyqf
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Santa Eulalia tienda online: opiniones y valoración: Hacemos un repaso y análisis por la tienda on... https://t.co/kkvJvP6rTn #Marketing
+RT @MaalFreeKaa: The #contest is still on tweeple. Tweet us your best #MonsoonMoments pics with interesting captions &amp; win Flipkart voucher…
+@iTIGERSHROFF @iHrithik Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+RT @MaalFreeKaa: Participate in the #HitToKill #contest by sharing your craziest ways of killing mosquitoes and win exciting Flipkart Vouch…
+Buy Micromax Canvas Smart LED TV Online from Flipkart + Best Price + Launch Offers https://t.co/nWAo6s9JBX
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@Flipkart Cool #TrendingOnFlipkart
+Product for 149/- and delivery charges are 110/-. #facepalm @Flipkart https://t.co/TGXkI7YZFV
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Môi giới BĐS tranh giành khách hàng trên marketing online https://t.co/lEzPsRuY2s
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Four online business rules that don’t exist any more https://t.co/0XYB1byBTP via @markwschaefer #marketing https://t.co/jARHt78ULN
+@arjunk26 Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/3U10FG3diN
+@chavipatankarr HIT &amp; never quit! Share more wacky ways to kill mosquitoes and win Flipkart vouchers. #HitToKill https://t.co/9TzRk3HC8R
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+#jobs #Mecklenburg-Vorpommern #Marketing-Manager (m/w) Online / Offline Standort Rothenburg o.d. Tauber:  
+  ... https://t.co/sWfjULI88S
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) https://t.co/lklzQfj9iF
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) : https://t.co/YGj4bwKzAZ https://t.co/aBFbseUqkU
+https://t.co/9CBqhHfipd  Health &amp; Baby Toiletries, USA FDA approved, on Amazon, Snapdeal, Flipkart &amp; Mumbai 22018671 https://t.co/uB2u4ZOfXt
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @MLMMadrid: Como Crear Un Embudo De #Marketing Para Tu #Negocio Online... https://t.co/5h8FGE7BhO
+After #NPS (Net Promoter Score) #Flipkart banking on customer loyalty to regain its past glory https://t.co/pz5qkbzcoC #ecommerce
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @Mohit4377: @Flipkart Cool #TrendingOnFlipkart
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Designing for P https://t.co/aaGU9K99Wi #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/i6v4Xpytbt
+https://t.co/EnlMoKN3eH... https://t.co/b94JGHPziE
+Banks, Credit Unions to Learn Social Media Marketing Best Practices #marketing #internet-marketing #online-marketing https://t.co/yQuFYNJQf2
+Kenstar KHS20W1P-DBH 200 W Hand Blender @ Rs. 649 https://t.co/dDR25bV4sY #HotDeals #Flipkart
+@lady_gabbar #FlipkartFreedomSale 2. @Flipkart https://t.co/8EXr6Hxeyo
+@shubhamjhadash1 same goes for Flipkart &amp; Snapdeal I've purchased expensive stuffs like smartphones from each of these sites.
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+Your Wishlist in 27K from #FlipkartFreedomSale https://t.co/4mZudNNE3i
+RT @sabtv: Just share your #OoltahChashmahSelfie with us &amp; get a chance to win Oppo F1 plus, Kindle &amp; Flipkart Vouchers.
+Deal of the Day:  Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G)... https://t.co/rbCN9gczUc
+#FlipkartFreedomSale! https://t.co/b5RopCpcTe
+RT @vishwajeet_86: @Flipkart when will winners of #Redmi3SonFlipkart  contest will be announced team
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/Hwtc70oGC1
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@Flipkart superb cool fantastic #TrendingOnFlipkart
+Embudo del #marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/mL6VtxBKeN
+View Our Online Business &amp; Social Media Marketing Tools Strategies &amp; Account Management. https://t.co/Br6QAqxLx5
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+Your Wishlist in 27K from #FlipkartFreedomSale https://t.co/4mZudNNE3i.
+RT @GdnSmallBiz: Why online video is the future of content marketing https://t.co/gc3cTrDcYM
+@Flipkart superb cool fantastic nice one #TrendingOnFlipkart
+RT @Kavya0603: @Flipkart eagerly waiting for #Redmi3SonFlipkart results gave my best fingers crossed for the results. Hoping to win
+RT @HITKPKD: Flipkart vouchers to be won in the #HitToKill #contest! Share your wildest ways of killing mosquitoes to win!
+. @Flipkart mark down once more : valued at $11.5 billion by Valic
+
+https://t.co/6zLrHyXFp4 https://t.co/30t6kMJLON
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@myntra Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/hJlkZGkyGN
+WLAN-Betreiber wird Access-Providern gleichgestellt #Online-marketing https://t.co/niu5qbecSf https://t.co/Z3TV2K9ADJ
+@nitin_cul @myntra @sachin_rt Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !!
+#Flipkart Vu 80cm (32) HD Ready LED TV at 18% + Extra 10% https://t.co/fC4s4ZoV8g
+#FlipkartOffers Chk https://t.co/Mo0qV2wgNu https://t.co/uC2fNKAOS4 Flipkart: Dive into a galaxy of entertainment w/ the Samsung Galaxy J…
+@MeghnaBhatia5 @myntra Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Check out these intensive online classes in Big Data, Data Science and Performance Marketing. https://t.co/6iLM5WW03N - Join today!
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @MauJualBeli
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @sabtv: Just share your #OoltahChashmahSelfie with us &amp; get a chance to win Oppo F1 plus, Kindle &amp; Flipkart Vouchers.
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/jLhth9ZL7W
+@JatinKiDuniya @flipkart hey this makes a total of 27k try this :) don't waste a single penny #FlipkartFreedomSale https://t.co/KLiQAaT7oZ
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+#3Novices : 
+
+Flipkart Freedom Sale Day 2: Top 10 deals on smartphones, power banks, hard disks and more
+ 
+https://t.co/eI9Sq1VDSV 
+
+The c…
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+ #FlipkartFreedomSale https://t.co/KcAQ5SNFD6
+nextbigwhat: . Flipkart mark down once more : valued at $11.5 billion by Valic
+
+https://t.co/zDswNby8xj https://t.co/LzDatwluxZ
+@pathiyash @myntra Get Exclusive Discounts on Elixir Man Footwear on https://t.co/iUfWBwlPkE … … … … … … … … Shop Now !! Grab Or Gone
+RT @Hugetrick: #JVCDealoftheDay #JVCIndia Amazing offers on @JVCIndia headphones,40% Off😄 on flipkart https://t.co/6hJ0PYrNtE https://t.co/…
+Real-time updates for https://t.co/llroIRRSsW (@LifeChurchNJ) online marketing strategy. https://t.co/ixucuWexD1
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @scienmag: Advanced economy nations have high rates of online marketing of stem cell thera https://t.co/u9fgcAmGFJ https://t.co/3rGpTknp…
+Take advantage of virtually all the suggestions on this Site as part of your Online Marketing Strategy #SMMEER  https://t.co/ZdFc0Xbb73
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+ #FlipkartFreedomSale https://t.co/KcAQ5SNFD6.
+@pal36 headphone: https://t.co/v6tUCRt5k3
+#Marketer'sGuide: Ways To Reach Women Online http://www.digitalinform... - #marketing https://t.co/gAuSYRUreb https://t.co/6kvxS6Cn3Y
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+ #FlipkartFreedomSale https://t.co/KcAQ5SNFD6...
+https://t.co/tfLFf1BHfO https://t.co/PWB6vGgxdy
+Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/HkKNeejpCL #Bizitalk https://t.co/2q9VKLHcyr
+Popular SEO Site Promotes Seo Conferences For Online Marketing Enthusiasts https://t.co/Rja41wnPrg
+RT @nextbigwhat: . @Flipkart mark down once more : valued at $11.5 billion by Valic
+
+https://t.co/6zLrHyXFp4 https://t.co/30t6kMJLON
+The Singing Guru Is Here: Learn how to make money online with Jamie's affiliate marketing bible. https://t.co/C3LQfUeF2H
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) https://t.co/NTz6VoxeNd
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@MaraContardo @AuroraFantin @UniTrieste Consigli utili anche per noi! https://t.co/3iToU0pTeL
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) https://t.co/E9UZtQSm52
+Buy LYF WIND 3 with JIO Preview Offer at Rs.6999 – Flipkart (Free Unlimited 4G) https://t.co/5hmR8QaCiJ
+10% Off Using HDFC card
+Xiaomi Redmi Note 3 Online Price 16GB Rs. 9198, 32GB Rs. 10798 + Cashback – Flipkart
+https://t.co/KgwGgbhuue
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/QQlqzr4h3k
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/nXZ1yQlSev
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/38woXcEY18
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/zhBfCbdFdw
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/BNM91bBzDL
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a co... https://t.co/a8VDUVDSMC (Toi)
+RT @HITKPKD: Flipkart vouchers to be won in the #HitToKill #contest! Share your wildest ways of killing mosquitoes to win!
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/ivnCU6QymR
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/er3AtT5QK0
+RT @HITKPKD: Participate in the #HitToKill #contest by sharing your craziest ways of killing mosquitoes and win exciting Flipkart Vouchers!
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/XthX1Krj5w
+@OpentoExport UK exporters will want to know about our series of webinars on country specific marketing online https://t.co/8Og26v7xpT #IoE
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a c... https://t.co/a8VDUVDSMC (TOIn)
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/CWWQvno9QG
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/09CwzfR7Nj
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT: Traders body CAIT has filed a complain... https://t.co/oLHw0jIOiG
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@pal36 mobile: https://t.co/ynf7kNqU9v
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @TitipIklan
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @TitipPromo
+Amazon, Flipkart, Snapdeal sale violates FDI norms: Traders body CAIT https://t.co/goWuwGJSM2
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Online Sales &amp; Data Mining: We are an online marketing firm in the popular Vape Industry, We've l... https://t.co/oMz90yvpP4 #datamining
+@Flipkart coooooool #TrendingOnFlipkart 😚😚😚
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/oPdApRauC2
+Embudo del marketing online: hacia la conversión del cliente potencial en cliente real https://t.co/pttZFm7Kiu
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/E1mU82w4Sd
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@Flipkart no one at #Flipkart seems to be interested in solving my query regarding order OD506762361247457002
+@JatinKiDuniya @Flipkart Ye lo Rs. 27 ko bachat ke saath apke liye branded products from #FlipkartFreedomSale. https://t.co/uMIo2We64d
+How to Accelera https://t.co/M3fNCvivGc #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/hWzKZihpl8
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @rrhhNeoAttack: Qué es un KPI, ventajas y 11 ejemplos en Marketing online https://t.co/Te8tzypkOA #PymesUnidas
+Planning is the key in your social media marketing plan
+https://t.co/oE0B1xwM1V
+@Flipkart sending old/wrong products and not returning.
+@JatinKiDuniya #FlipkartFreedomSale @Flipkart here is yours https://t.co/GMcULQSs3s
+@JatinKiDuniya #FlipkartFreedomSale @Flipkart https://t.co/MQ0v5a32Ki
+@tanya_s7  Waiting for  response frm Flipkart n amazon. :)
+Value Propositi https://t.co/okMEwB5sq5 #e-business, #JV, #PPC, #e-marketing, #online business, #driving traffic, https://t.co/PQaKEmzgOW
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale you should buy all these https://t.co/vAIz9F99wS
+The Best Tech Deals From Flipkart Freedom Sale https://t.co/ruQmp5a3li
+Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/PiVKdhDnbJ via @Entrepreneur https://t.co/qFsEPNQaKx
+Small Businesses Need an Online and an Offline Marketing Strategy  #entrepreneurship https://t.co/tGcPmA4uuu
+Targeting zur Personalisierung von Online Marketing Maßnahmen https://t.co/Eq9q1MSZB8 #martech #marketingitgap
+@0__1 Found great deals for you also saved few bucks so you can pay on food bills ☺ #FlipkartFreedomSale @Flipkart https://t.co/EIaXIGdZCd
+Flipkart mark down once more : valued at $11.5 billion by Valic https://t.co/8vi1L6TmjV
+RT @Entrepreneur: Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/yJyHzYyyLY
+The Online Tools General daily is out! https://t.co/hU1HPntPQw Stories via @unibloggingtips @OEPFRANK @bannersnack #seo #marketing
+Small Businesses Need an Online and an Offline Marketing Strategy #socialMedia#entrepreneur https://t.co/puowq7c2n0
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @Flipkart: Q2. This is for all you fitness freaks! Tag those friends. #FlipkartFreedomSale https://t.co/IVKheL9DwO
+@JatinKiDuniya #FlipkartFreedomSale @Flipkart an amazing discount and deal https://t.co/3aDzgGaMyr
+RT @kathy73188474: Planning is the key in your social media marketing plan
+https://t.co/oE0B1xwM1V
+RT @JatinKiDuniya: #FlipkartFreedomSale is on &amp; I am giving 5 flipkart vouchers of 1k each to 5 followers. All u got to do is help me out!…
+#Arbeit in #Leipzig - Online Marketing Manager (w/m) – Tickets75 – Leipzig https://t.co/cBb6ZKBkSD
+@style_icon13 Interesting way to kill them all. Share more ways to win Flipkart vouchers #HitToKill https://t.co/ZMJpeaXUSs
+Top 25 Digital Marketing Tools &amp; Strategies For 2016 https://t.co/CqI6xw19sm #digital #marketing #online #socialmedia #SEO #strategy
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Create Your Own Business Videos Online Using Amazing Templ https://t.co/UeAp9V5lfz https://t.co/fqKInGopjn #Tools #Video #Marketing #CMO
+Flipkart's #TheFreedomSale Shop &amp; earn #rewards from CashMint https://t.co/4y62pAkDk2 https://t.co/nNoTKiqFCA
+FlipKart The Freedom Sale https://t.co/Iq8d2taF0P
+Look at these numbers! https://t.co/ZxQNKg49S4
+Online #marketing voor #webwinkels, voor #tips en #advies over #interactie en #communicatie sta ik voor je klaar!   https://t.co/UWMtcnIRnO
+CAIT writes to DIPP citing FDI violation by e-comm marketplaces like Flipkart &amp; #Amazon. Read more: https://t.co/DiikFzBLaL $AMZN
+RT @Entrepreneur: Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/yJyHzYyyLY
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @Hugetrick: #JVCDealoftheDay #JVCIndia Amazing offers on @JVCIndia headphones,40% Off😄 on flipkart https://t.co/6hJ0PYrNtE https://t.co/…
+Small Businesses Need an Online and an Offline Marketing Strategy 
+
+https://t.co/6svW3kMTs3 https://t.co/6ROiDbhoGT
+@Flipkart @hbarra @peeyush @ETNOWlive @EKARTCourier You're quoted in #FlipkartStories - Headlines &amp; more 
+https://t.co/2OTRoN2rMj  #Storify
+MUST HAVE SEO TOOL create UNIQUE articles in seconds! #articles #GoogleSeo GetResponse Online Marketing Platf... https://t.co/sLFusxbjmf
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+Even i got Defective laptop Dell DV 3458 Vostro 14 3458  :(   Not sure if i go for refund or replacement https://t.co/lpwu9oXz9r
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+This #Rakshbandhan Get Tag Of 'Best Brother' With Innovative #giftideas @Flipkart #Rakhi2016 https://t.co/XsPqVcBRZL https://t.co/A85LxY8eaz
+Make Your First $$ Online
+
+Free Report Shows How To Get Started In Digital Marketing.
+
+Click Here. https://t.co/eiy7YLjrN8
+Tijd om de balans op te maken. Wat zijn de trends van Online Marketing halverwege 2016? https://t.co/9PR1EbEFfY #nicetoknow #onlinemarketing
+Marketing Intern - Des Moines: Yelp - Des Moines, IA - activities designed to rally the Yelp community both online… https://t.co/mtaHnYy7B2
+Guía: 13 conocimientos obligatorios para trabajar en marketing online @SemBilbao https://t.co/eMoAtptvd1
+RT @JatinKiDuniya: #FlipkartFreedomSale is on &amp; I am giving 5 flipkart vouchers of 1k each to 5 followers. All u got to do is help me out!…
+RT @nextbigwhat: . @Flipkart mark down once more : valued at $11.5 billion by Valic
+
+https://t.co/6zLrHyXFp4 https://t.co/30t6kMJLON
+CAIT writes to DIPP citing FDI violation by e-comm marketplaces like #Flipkart &amp; Amazon. Read more: https://t.co/8bNfREUII5
+Kings of Indigo ziet duurzaamheid als bonus #Online #Marketing https://t.co/cVq8G4u51z
+FlipKart – Clothing, Footwear &amp; Accessories 50% off or more https://t.co/s1PMwp08a3 https://t.co/FNo7lbhbbU
+@Flipkart @flipkartsupport issue not solved yet?
+Modern Marketing Methods –sharing your knowledge online https://t.co/xUyF6GrCHf
+Freedom Sale Day 2 @ Flipkart : https://t.co/6rYJJliINN ( same deals as yesterday )
+Maak jij deze fouten bij het inzetten van online marketing? https://t.co/Lpbl9RznRQ  #onlinemarketing
+@pal36 shirt: https://t.co/zOlLIhrwTn
+Buy #LYFWIND3 with #JIOPreview Offer at Rs.6999 – @Flipkart (Free Unlimited 4G) - https://t.co/lklzQfj9iF #ReadForGreed
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @titipbarang
+Los 80 mejores blogs de Marketing online en Español por @RostSMM https://t.co/i1J0P48TJV via @semrush_es https://t.co/9fLdEBcMvc
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+One click SEO friendly ARTICLE GENERATOR #traffic #SeoTricks Your New Toolkit: Top Online Marketing Tools for... https://t.co/Dc1hoRto4G
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @Flipkart: Q1) Easy one to start with. Don't forget to use the hashtag #FlipkartFreedomSale https://t.co/pORQ5bDhzS
+RT @yash_insan: @Flipkart #FlipkartFreedomSale Samsung
+RT @gameconsulting: Woah, it's time to prepare for #MIGW16! Use the code WOWZER for 30% off our Intro to Games Marketing online course! htt…
+A website is a marketing tool designed and uploaded online for the sheer purpose of promotion. https://t.co/t8gIHznjXO
+@JatinKiDuniya @Flipkart xiaomi redmi note 3,seagate drive,puma shoes all things u can buy from @flipkart
+Saya menambahkan video ke daftar putar @YouTube https://t.co/qfRth1em7l jurus Funel marketing online
+Monitoring – The Importance of Data in Online Marketing https://t.co/xu2XYTaXNO https://t.co/Q6kBQpKhky
+Want to know the 7 Deadly Side Effects of #Marketing Online?  https://t.co/JDK3VQughn
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@JatinKiDuniya @Flipkart 
+Here You Go
+Best Brands. Original Products
+ #FlipkartFreedomSale https://t.co/sY0xbSYkPm...
+#analytics Manager Digital Analytics: Flipkart, Bangalore Job Code: 110816-1135. Manager Digital Analytics. F... https://t.co/jrJftvWTnR
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@lady_gabbar Hi, these are my suggestions for #FlipkartFreedomSale @Flipkart https://t.co/XoI0MhU6jJ
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Nine Guilt Free Online Marketing Tips https://t.co/48eUDDIyy0
+RT @thinkgoogledach: Stich aus der Masse heraus mit deinem kostenlosen Zertifikat für Online-Marketing von Google. https://t.co/OI5rTNsdmC
+RT @aAlmeidaAbogada: Requisitos legales de una página web y campañas de marketing online [+Guía]:  
+
+Se... https://t.co/tjijHkDicf Vía @Inb…
+Intex iRist PRO Smartwatch Rs. 4299 – Flipkart https://t.co/fLHkXyF4B9 #DealzBasket #dealoftheday #OnlineDeals #Coupons #Promocodes #Vouch…
+#webinar 'verkoopkansen creëeren met Online Marketing' van @MakeMeMagic aan het volgen.
+7 Ways To Increase Your Online Reviews For Your Small Business https://t.co/LtGH7fWBfH (A Must Marketing Strategy) https://t.co/1iSSYvil4o
+RT @HITKPKD: @style_icon13 Interesting way to kill them all. Share more ways to win Flipkart vouchers #HitToKill https://t.co/ZMJpeaXUSs
+7 Ways To Increase Your Online Reviews For Your Small Business https://t.co/Kjls1noDHH (A Must Marketing Strategy) https://t.co/mWghhvpsJO
+RT @Hugetrick: #JVCDealoftheDay #JVCIndia Amazing offers on @JVCIndia headphones,40% Off😄 on flipkart https://t.co/6hJ0PYrNtE https://t.co/…
+RT @HITKPKD: @chavipatankarr HIT &amp; never quit! Share more wacky ways to kill mosquitoes and win Flipkart vouchers. #HitToKill https://t.co/…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@relishingrascal Eat. Sleep. Kill mosquitoes. Repeat! Share more crazy ways to win Flipkart vouchers #HitToKill https://t.co/idQqlWPG7R
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @HITKPKD: @JatinKiDuniya That's definitely a cool way! Share more ways of killing to win flipkart vouchers! #HitToKill https://t.co/CCH4…
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/MrqNDbf1QH
+RT @HITKPKD: @relishingrascal Eat. Sleep. Kill mosquitoes. Repeat! Share more crazy ways to win Flipkart vouchers #HitToKill https://t.co/i…
+Buy #LYF #WIND3 with #JIOPreview Offer at Rs.4199 - @Flipkart
+Details Here:... https://t.co/nEfVlF21Kf
+Auto post BLOGGER, Just set your keyword &amp; forget https://t.co/B5rbGHak86 #software | SEO Tricks Online Marketing Firm, fishbat, Reveals 4…
+Midweb Services #Mobile #Websites #Apps #Text #SEO #SocialMedia #Video #Marketing if it's #Online we can help call 01283 260126 #Burton
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Free Online Marketing https://t.co/90lrz9ESDU
+[Download] Computer Network Securíty and  https://t.co/hj6avBnnMa MARKETING - CYBER SECURITY #computer #cyber #download FREE MARKETING ADS
+Free Online Marketing https://t.co/5W3ARKsxku
+@JatinKiDuniya @Flipkart #FlipkartFreedomSale Right there with all options in 27K https://t.co/gMIQERs1r0
+@JatinKiDuniya @Flipkart Here are my picks from the #FlipkartFreedomSale! Great offers to grab them all! https://t.co/Brqu5NBMpP
+More Social Media Marketing Tips #marketing #internet-marketing #online-marketing https://t.co/50pZyNzcDS https://t.co/zWimaFjt2S
+@AnishShekhawatt this is a cool way to kill mosquitoes! Share more ways to win Flipkart vouchers. #HitToKill https://t.co/TSLD5964Zv
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+In the immortal words of Inspector Gadget, "Wowzers, Chief!" https://t.co/JFHNledfPu
+We are changing the online marketing game with TweetBoss https://t.co/dQqYihnOGb
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Free Online Marketing https://t.co/zkFDPpSvL9
+RT @MikeKawula: 7 Ways To Increase Your Online Reviews For Your Small Business https://t.co/LtGH7fWBfH (A Must Marketing Strategy) https://…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Yg punya usaha tp gaptek,klik https://t.co/40sZp2n3Sw
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @promotegratis
+RT @fancyseller: Get the Flipkart app and get cash reward.200 rs. Use  code km3uuuu
+https://t.co/7SdJR9Jb31
+#London Is The #SEO Capital Of #Europe!: What Makes the Capital Such a Magnet for Online Marketing Companies?... https://t.co/Css204Agnv
+"Sander Oord (ツ): #webinar 'verkoopkansen creëeren met Online Marketing' van MakeMeMagic aan het volgen." https://t.co/DMqmELQJzo
+@suhelseth @Flipkart charged me thrice for shipping 3 headphones in the name of same day delivery,although same courier comp is delivering
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@Flipkart selling faulty electronic product @_sachinbansal &amp; @binnybansal. @inconsumerforum pls check on this.
+@Flipkart Got defective product Dell laptop.... seen many reviews for defective laptop issues from @Flipkart during #FlipkartFreedomSale
+https://t.co/jZAf3Vgjuk... https://t.co/0nP8I7bOeg
+@flipkartsupport had made d paymnt, wasn't redirected to Flipkart's order page n can't see my ordr in ordr tab,help! https://t.co/4zBnIPfCyC
+RT @myCEOau: Small Businesses Need an Online and an Offline Marketing Strategy https://t.co/PiVKdhDnbJ via @Entrepreneur https://t.co/qFsEP…
+Free Online Marketing https://t.co/rYgvAfTfUg
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @adicrazy: Product for 149/- and delivery charges are 110/-. #facepalm @Flipkart https://t.co/TGXkI7YZFV
+¿Por qué mi empresa debe hacer uso del Marketing Online? https://t.co/H5e3p5vvVs #MarketingOnline… https://t.co/VPAexDkjBF
+Online Ecommerce Marketing Services Pune | Ecommerce Digital Marketing Pune | Optimized Infotech: Optimized I... https://t.co/ErBtzsu5iV
+Yg punya usaha tp gaptek,klik https://t.co/40sZp25t0Y
+24jam dtraining online! GRATIS Youtube Booster Online&amp;Marketing Profit! @FJB_sumsel
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+The latest Online Shopping Magazine! https://t.co/mTLJSneEGB Thanks to @true_nl @Just4KidsNL @YvonneSU4k #vacature #marketing
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+https://t.co/UTNjaMqo4p SEO ARTICLE GENERATOR https://t.co/z6rkKhUZUc #HomeJobs #WebHosting Online Marketing Firm, fishbat, Reveals 4 Ways…
+@JatinKiDuniya xiaomi redmi note 3,seagate drive,puma shoes all things u can buy from @Flipkart #FlipkartFreedomSale
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/Pp7vH3ltyt
+Traffic Building School Daily Training Videos By Email: New: The Easiest Way For Newbies To Learn Online Marketing!… https://t.co/C2UogleCQH
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+Flipkart shares get 10 per cent mark-up from US mutual fund https://t.co/MyTtsRX8m6 #investing
+Clothing, Footwear &amp; Accessories 50% off or more – FlipKart: FlipKart is offering 50% off or more on Clothing... https://t.co/j97BMWBy16
+¿En cuáles redes sociales debes centrar tus campañas de video? https://t.co/5eONqybzJc https://t.co/9F3W2Hnu55
+Flipkart Freedom Sale – Best Price Discount Deals + 10% Bank Offer
+https://t.co/n4UuZWvNhe
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @Phrustated: @lady_gabbar Hi, these are my suggestions for #FlipkartFreedomSale @Flipkart https://t.co/XoI0MhU6jJ
+Ben je nog op zoek naar leuke stage? Stage online marketing bij snelgroeiend bedrijf in Apeldoorn https://t.co/vwwTrMPVFE
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @GouravvRock: @JatinKiDuniya here is my answer i suggest you to buy all these. 
+@Flipkart #FlipkartFreedomSale https://t.co/VE0d6ma8O0
+Small #Businesses Need an Online and an Offline #Marketing #Strategy https://t.co/VI6VjSpa9T https://t.co/BQy8l4wbZP
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/u84BWbrDs8
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/FNIGdoBAaf
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/GZCqHGV5bE
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/Zp3sruCiED
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/IKIoBa2oEw
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/xMQu3zkAhs
+Cursos Gratuitos Online de Marketing Digital que no te debes perder en 2016 https://t.co/qfZMMa6g0e
+RT @tillzier: How to Steal the Best #SEO Tricks From Top 5 Online #Marketing Experts @MPozdnev https://t.co/6SDd76Yfib https://t.co/oKWA73Z…
+Los 5 errores más comunes de las marcas en vídeo marketing: 
+https://t.co/IRojILvvMJ
+Online Marketing Medewerker -Copywriter: Van Heck - Interpieces https://t.co/PpAGQV83oW  #bejobs #marketing
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Kleine meisjes worden groot en hebben een eigen online marketing bureau. I've come a long way… https://t.co/Kty7N6d8mM
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @HITKPKD: Get ready for the craziest wackiest #contest in which you can #win exciting Flipkart vouchers! Get ready and tell your friends!
+Wieder toller Name und riesen Sound! miikesnow - enjoy 🎶🎶 @ Oberholzer Online Marketing https://t.co/gsi2id3w2J
+Dear @suhelseth , @Flipkart not responding to legal process, worst e-retail store, sold Fake RAM @_sachinbansal https://t.co/4Kugu6AQbb
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+#seo #internetmarketing The Ideal Length for all Your Online Marketing Content ... https://t.co/LbUcSEnP0O
+#Inbound #Marketing Is About Much More Than Getting Found Online, by @inboundrocket https://t.co/BN4IPViFwT
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/n69JzWJoqo via @YouTube
+@lady_gabbar Rock 91898 https://t.co/FBI6H4r8z6
+
+Timex B300 https://t.co/FowOsRjk0R
+We are the biggest company supporting #online #stores. #marketing #ecommerce https://t.co/3iovGg3IoB https://t.co/4nRvXzIely
+All you have to do is suggest the best items available within my budget &amp; you could get a @Flipkart voucher worth 1k. #FlipkartFreedomSale
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Ben je nog op zoek naar een leuke online marketing stage voor september? https://t.co/z5hMXBe180
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Morning Levaganey 
+Flipkart Lo Book Chesina D-Link Router Delivery Vasthadi Ani Message Vachindi....
+
+Kaani Ah... https://t.co/PPSMz41kgW
+RT @Swaty_Here: @JatinKiDuniya @Flipkart Here are my picks from the #FlipkartFreedomSale! Great offers to grab them all! https://t.co/Brqu5…
+@Flipkart Here are my answers with a creative way Hope u guys will  notice my efforts to #FlipkartFreedomSale https://t.co/aTGZ6hqlEQ 35
+I ♥ this product on Flipkart! Hawkeyed Men Tan Genuine Leather Wallet https://t.co/JkEDl154Al #buyonflipkart via @Flipkart
+Create UNLIMITED articles for your blog https://t.co/Nm1tBRzhR5 #DigitalMarketing | Online Marketing 12 (Non-Whimsy) Blogs That’ll Make…
+Los 80 mejores blogs de Marketing online en Español por RostSMM https://t.co/ThOlM7V5wd via semrush_es https://t.co/sXwTWVbusz
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Online zur Finanziellen Freiheit: Durch Affiliate Marketing passiv Geld verdienen im... https://t.co/yQaQFgLjWN
+@Flipkart Here are my answers with a creative way Hope u guys will  notice my efforts to #FlipkartFreedomSale https://t.co/aTGZ6hqlEQ 36
+RT @IntexBrand: Introducing FitRist Pulzz
+Your daily dose of fitness. 
+Get exclusively @Flipkart https://t.co/8uFUOJUOQ6
+#Pulzzation https:…
+RT @GouravvRock: @JatinKiDuniya #FlipkartFreedomSale @Flipkart an amazing discount and deal https://t.co/3aDzgGaMyr
+Looking for an online marketing expert to help me achieve my musical aspirations! Please inbox me if you're interested.
+RT @lady_gabbar: All you have to do is suggest the best items available within my budget &amp; you could get a @Flipkart voucher worth 1k. #Fli…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@Flipkart Here are my answers with a creative way Hope u guys will  notice my efforts to #FlipkartFreedomSale https://t.co/aTGZ6hqlEQ 37
+RT @_e_marketing_: https://t.co/UTNjaMqo4p SEO ARTICLE GENERATOR https://t.co/z6rkKhUZUc #HomeJobs #WebHosting Online Marketing Firm, fishb…
+RT @_e_marketing_: SEO ARTICLE GENERATOR https://t.co/uQADqZIpEo #HomeJobs #WebHosting Online Marketing Firm, fishb… https://t.co/g9tkWMoMgH
+I ♥ this product on Flipkart! Hawkeyed Men Black Genuine Leather Wallet https://t.co/2inNNhdeut #buyonflipkart via @Flipkart
+@lady_gabbar Kitna shopping karegi? @Flipkart
+LYF WIND 3 Mobile With Reliance JIO Offer Price Rs. 6998 + Cashback – Flipkart
+https://t.co/ugMh8Jwti5
+RT @lady_gabbar: All you have to do is suggest the best items available within my budget &amp; you could get a @Flipkart voucher worth 1k. #Fli…
+3 tips on how to creative effective digital #content for UK #smallbusiness &amp; succeed with online marketing https://t.co/pIp08rNjJc
+#Flipkart buys https://t.co/JNOVyMrael for $300 million https://t.co/NEObFadkRr
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+I ♥ this product on Flipkart! Hawkeyed 10 Card Holder https://t.co/P55A1gxWOw #buyonflipkart via @Flipkart
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Respite For #Flipkart: US Fund Valic Marks Up Its Valuation By 10%. Read more: https://t.co/b8OeNlVva3
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/pB1O35gPZ3 via @YouTube
+RT @krmayank13: @JatinKiDuniya @Flipkart Ye lo Rs. 27 ko bachat ke saath apke liye branded products from #FlipkartFreedomSale. https://t.co…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Marketing with Strategic Empathy by Claire Brooks Paperback Book (English) https://t.co/bEpBjoa38f https://t.co/paVsb2b5Xz
+Online Marketing Manager (m/w) für Karlsruhe gesucht -  https://t.co/GxkS3VRdVC
+RT @ahmershahab: @kamlesh_maru @Flipkart welldone
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+online Marketing
+
+Wenn Ihre Website fertig ist, dann geht es darum, bei Google gefunden zu werden. Erzählen Sie... https://t.co/eaHNdrpxQ7
+RT @Hugetrick: #JVCDealoftheDay #JVCIndia Amazing offers on @JVCIndia headphones,40% Off😄 on flipkart https://t.co/6hJ0PYrNtE https://t.co/…
+Now at https://t.co/yDbzISYiPu, amazon, flipkart #UpcampusDowncampus @SameerArshad1 @SushilAaron @p1j @morphineworld https://t.co/SEw6GCmRbw
+@flipkartsupport I trusted @Flipkart hence i purchased mobile from u. ur responsibility to resolve the issue when product is faulty.
+RT @webwinkelen: The latest Online Shopping Magazine! https://t.co/mTLJSneEGB Thanks to @true_nl @Just4KidsNL @YvonneSU4k #vacature #market…
+Coca-Cola Nederland transformeert YouTube kanaal tot CokeTV #Online #Marketing https://t.co/JjGqBsZxML
+@AnkurGoesSocial is taking the war to mosquitoes &amp; killing them. Share more ways &amp; win Flipkart vouchers #HitToKill https://t.co/FkHYO0AzUx
+#Pothi Three Essential Ingredients for Online Book Marketing. Read Blog: https://t.co/bbpQKLZKA3
+Seems like precision targeting in online #advertising isn't always so effective https://t.co/IVwmPIYPuL #Adtech #Facebook
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Die Online Marketing News wurde soeben publiziert! https://t.co/CnOO7BGWsI Vielen Dank an @calroo1 @ReachXGmbH @om_tag #onlinemarketing
+Silverlit Dragon Mac Set - Wireless Remote Control(Multicolor) -- https://t.co/x4EmTYD55G -- Rs. 1017.0 -- Baby Care &amp; Toys …
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal, Limeroad etc @newcouponin https://t.co/cdUuJO0y1X
+RT @getonfirstpage: Landscape Architects AZ,marketing,marketing services,marketing company,SEO,first page,internet,online,solutions
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Punit Soni, Ex-CPO, Flipkart and Advisor/VP, Google on Executive Product Management and other product wisdom https://t.co/tvvLzMenPo
+Mobile Exchange Offer Upto 17,000 Off On Best Selling Mobiles + Cashback – Flipkart
+https://t.co/7CJrXYEAS5
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @HITKPKD: Participate in the #HitToKill #contest by sharing your craziest ways of killing mosquitoes and win exciting Flipkart Vouchers!
+Tired of all these must-read Online Marketing e-books and webinars by some Gurus. #notbuyingit #stopthesignupnowshit https://t.co/fqfAgMUXJM
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+CoolCats MS Mode failliet, webwinkel V&amp;amp;D in oktober live #Online #Marketing https://t.co/9jwXIfyEfq
+Fisher Price Rock 'n Roll Guitar -- Flipkart -- Rs. 647.0 -- Baby Care &amp; Toys https://t.co/uBU8tpUpRN #Deals #Offers
+PSV voegt eSports-gamer toe aan selectie #Online #Marketing https://t.co/M2nSYJszQn
+Flipkart mark down once more : valued at $11.5 billion by Valic https://t.co/iaNgYA3neI https://t.co/cuVaj0VNd7
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @JatinKiDuniya: My budget is 27k &amp; I want to buy Mobile, Harddisk, backpack, shoes &amp; watch which ones should i buy from @flipkart? #Flip…
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+@TheTalliQueen with an explosive way to kill mosquitoes! Keep sharing more ways to win Flipkart vouchers #HitToKill https://t.co/MDtdEgpLwA
+Josiemose: Road to Online Marketing &amp; Digital Sales Automation - https://t.co/W3JKoycN7N Test Prep Grade 2 Spectrum: https://t.co/lNZNDxmTAs
+Online omzet in juni weer gegroeid #Online #Marketing https://t.co/OL54TfdsSm
+#JVCDealoftheDay 
+Available at a 40.% off @ flipkart 
+Go n buy all awesome deals 
+https://t.co/KpsLDRCuQj
+@JVCIndia
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Find all the latest coupons and deals for Amazon, Flipkart, Ola, Uber, Snapdeal,… https://t.co/MUKn1UOjun
+Los 80 mejores blogs de Marketing online en Español por RostSMM https://t.co/mNczE8EYoU via semrush_es … https://t.co/73O69b1tnl
+Lenovo Vibe K5 Plus 3GB RAM Online Price Rs.8499 + Cashback – Flipkart
+https://t.co/aLIuFnfM1J
+Bediyuk is offering $500 if you help hire a Director of Online Marketing ! https://t.co/prYt6V895l
+10 Actionable #SocialMedia Growth Hacking Strategies For Startups. https://t.co/VtLECZNx6G #marketing #online https://t.co/j6VWvVg145
+@flipkartsupport @Flipkart issue is not in app dear it's on the desktop veiw. Already Sent you the the screen grab. https://t.co/mI1rYGLZY9
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+RT @cinemawaleghosh: Now at https://t.co/yDbzISYiPu, amazon, flipkart #UpcampusDowncampus @SameerArshad1 @SushilAaron @p1j @morphineworld h…
+RT @Seologies: SEO Web #Marketing can help with your Online Marketing Campaign! https://t.co/VKz0pxfeGH #SEO #internet #tech #mktg https://…
+@JatinKiDuniya all in your 27880 budget add to cart them @Flipkart #FlipkartFreedomSale genuine Bilkul pakka 100% https://t.co/vLiIzDYHYJ
+I ♥ this product on Flipkart! Hawkeyed Women Multicolor Genuine Leather Wallet https://t.co/sgByi1aOjY #buyonflipkart via @Flipkart
+RT @HITKPKD: Flipkart vouchers to be won in the #HitToKill #contest! Share your wildest ways of killing mosquitoes to win!
+I ♥ this product on Flipkart! Hawkeyed Shoulder Bag https://t.co/rW6GDUf1ke #buyonflipkart via @Flipkart
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Online Marketing News: Facebook Livestream Ads, Native Video on LinkedIn, &amp; Ad-Blocking Myths Busted https://t.co/M9BecTZgmz
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+Online Marketing News: Facebook Livestream Ads, Native Video on LinkedIn, &amp; Ad-Blocking Myths Busted... https://t.co/ye451OoJlW
+#Flipkart Freedom Sale Day 2: Top 10 deals on smartphones, power banks, hard disks and more
+. Read more: https://t.co/PXSRVPGorA
+I ♥ this product on Flipkart! Hawkeyed 13 inch Laptop Messenger Bag https://t.co/l0RsepgQqY #buyonflipkart via @Flipkart
+RT @Seologies: SEO Web #Marketing can help with your Online Marketing Campaign! https://t.co/VKz0pxfeGH #SEO #internet #tech #mktg https://…
+Aku ingat give up business buat business  website dgn online marketing. Tukar bidang ke hacking &amp; cracking... https://t.co/qVCOp4HE1m
+RT @SpeedySteamer: Affordable Online and Offline Marketing https://t.co/KJC5kdsmQg via @YouTube
+How to Generate Leads Online Without Content Marketing https://t.co/OmOvBGs3Uf #contentmarketing
+Time taken: 0.26 seconds, Fetched: 703 row(s)
+hive> select get_json_object (str,'$.in_reply_to_screen_name') as Generator_Display_Name from twitterdata;
+OK
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+NULL
+AyeNuMe
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+AyeNuMe
+JatinKiDuniya
+NULL
+NULL
+JatinKiDuniya
+AyeNuMe
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Phrustated
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+ankita655
+NULL
+vsvivekgautam
+NULL
+NULL
+NULL
+lady_gabbar
+NULL
+Flipkart
+NULL
+Born2bAwsome
+NULL
+NULL
+NULL
+NULL
+lady_gabbar
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Dhananjay_Tech
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+NULL
+NULL
+NULL
+Madan_Chikna
+JatinKiDuniya
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+flipkartsupport
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+MyXOLO
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+tapan_nayak
+NULL
+NULL
+JatinKiDuniya
+manukumarjain
+NULL
+flipkartsupport
+NULL
+JatinKiDuniya
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+lady_gabbar
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+iTIGERSHROFF
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+radiocityindia
+NULL
+ModelGarima
+arjunk26
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+sundaaraajaa
+NULL
+Flipkart
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+iTIGERSHROFF
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+arjunk26
+NULL
+NULL
+chavipatankarr
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+lady_gabbar
+shubhamjhadash1
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+JatinKiDuniya
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+myntra
+NULL
+NULL
+nitin_cul
+NULL
+NULL
+MeghnaBhatia5
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+ModelGarima
+NULL
+NULL
+JatinKiDuniya
+NULL
+pathiyash
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+pal36
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+MaraContardo
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+OpentoExport
+NULL
+NULL
+NULL
+NULL
+NULL
+pal36
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+Flipkart
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+Flipkart
+JatinKiDuniya
+JatinKiDuniya
+tanya_s7
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+0__1
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+style_icon13
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+pal36
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+lady_gabbar
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+relishingrascal
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+JatinKiDuniya
+NULL
+AnishShekhawatt
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+suhelseth
+NULL
+Flipkart
+Flipkart
+NULL
+flipkartsupport
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+lady_gabbar
+NULL
+lady_gabbar
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+NULL
+NULL
+Flipkart
+NULL
+NULL
+NULL
+lady_gabbar
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+flipkartsupport
+NULL
+NULL
+AnkurGoesSocial
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+TheTalliQueen
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+flipkartsupport
+NULL
+NULL
+NULL
+JatinKiDuniya
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+Time taken: 0.289 seconds, Fetched: 703 row(s)
+hive> 

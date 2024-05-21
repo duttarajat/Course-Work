@@ -1,0 +1,241 @@
+ubh01@ubh01:~$ start-dfs.sh
+24/05/21 15:52:11 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-namenode-ubh01.out
+localhost: starting datanode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-datanode-ubh01.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/ubh01/hadoop-2.7.1/logs/hadoop-ubh01-secondarynamenode-ubh01.out
+24/05/21 15:52:28 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+ubh01@ubh01:~$ start-yarn.sh
+starting yarn daemons
+starting resourcemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-resourcemanager-ubh01.out
+localhost: starting nodemanager, logging to /home/ubh01/hadoop-2.7.1/logs/yarn-ubh01-nodemanager-ubh01.out
+ubh01@ubh01:~$ jps
+2993 SecondaryNameNode
+2610 NameNode
+3272 ResourceManager
+3419 NodeManager
+3724 Jps
+2783 DataNode
+ubh01@ubh01:~$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ubh01/hadoop-2.7.1/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/home/ubh01/apache-hive-2.3.2-bin/lib/hive-common-2.3.2.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> create database facebook_data;
+OK
+Time taken: 0.292 seconds
+hive> use facebook_data;
+OK
+Time taken: 0.028 seconds
+hive> create table facebook_data (userid int, age int, dob_day int, dob_year int, dob_month int, gender string, tenure int, friend_count int, friendships_initiated int, likes int, likes_received int, mobile_likes int, mobile_likes_received int, www_likes int, www_likes_received int) row format delimited fields terminated by ',' tblproperties("skip.header.line.count" = "1");
+OK
+Time taken: 0.783 seconds
+hive> load data local inpath 'FacebookData.csv' into table facebook_data;
+Loading data to table facebook_data.facebook_data
+OK
+Time taken: 2.168 seconds
+hive> select round(avg(age),1) from facebook_data;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521161604_3796181c-01d0-4571-a9b7-8223b5822ae1
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0003, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0003/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 16:16:24,539 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 16:16:31,300 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.03 sec
+2024-05-21 16:16:39,102 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.45 sec
+MapReduce Total cumulative CPU time: 6 seconds 450 msec
+Ended Job = job_1716286996822_0003
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.45 sec   HDFS Read: 5227550 HDFS Write: 104 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 450 msec
+OK
+37.3
+Time taken: 35.974 seconds, Fetched: 1 row(s)
+hive> select gender, count(gender) Count from facebook_data group by gender order by Count desc limit 1;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521162041_1c7c0329-1709-4706-9dab-9a73586ab7b7
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0007, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0007/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0007
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 16:20:47,678 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 16:20:53,083 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.8 sec
+2024-05-21 16:20:59,545 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.46 sec
+MapReduce Total cumulative CPU time: 3 seconds 460 msec
+Ended Job = job_1716286996822_0007
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0008, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0008/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0008
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 16:21:10,361 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 16:21:15,776 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.22 sec
+2024-05-21 16:21:21,130 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 2.72 sec
+MapReduce Total cumulative CPU time: 2 seconds 720 msec
+Ended Job = job_1716286996822_0008
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.46 sec   HDFS Read: 5226340 HDFS Write: 170 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 2.72 sec   HDFS Read: 5841 HDFS Write: 110 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 180 msec
+OK
+male	58574
+Time taken: 42.284 seconds, Fetched: 1 row(s)
+hive> with age_groups as (select case when age between 13 and 25 then '13-25' when age between 26 and 50 then '26-50' end as age_group, friend_count from facebook_data where gender = 'male' and age between 13 and 50)
+    > select age_group, round(avg(friend_count),1) as avg_friend_count, count(*) as Count from age_groups group by age_group;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521164808_bda87578-135e-4d17-b2e3-c7314157dcd3
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0011, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0011/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0011
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 16:48:14,817 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 16:48:22,314 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.06 sec
+2024-05-21 16:48:30,912 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.81 sec
+MapReduce Total cumulative CPU time: 7 seconds 810 msec
+Ended Job = job_1716286996822_0011
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.81 sec   HDFS Read: 5231002 HDFS Write: 147 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 810 msec
+OK
+13-25	201.9	26538
+26-50	101.1	20164
+Time taken: 23.845 seconds, Fetched: 2 row(s)
+hive> with age_groups as (select case when age between 13 and 25 then '13-25' when age between 26 and 50 then '26-50' end as age_group, friend_count from facebook_data where gender = 'female' and age between 13 and 50)
+    > select age_group, round(avg(friend_count),1) as avg_friend_count, count(*) as Count from age_groups group by age_group;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521165008_c7cc3f78-5c37-4286-ac11-f86f7eaeac76
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0012, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0012/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0012
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 16:50:15,545 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 16:50:23,051 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.94 sec
+2024-05-21 16:50:30,458 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.49 sec
+MapReduce Total cumulative CPU time: 7 seconds 490 msec
+Ended Job = job_1716286996822_0012
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.49 sec   HDFS Read: 5231027 HDFS Write: 147 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 490 msec
+OK
+13-25	380.8	15776
+26-50	134.5	12352
+Time taken: 23.144 seconds, Fetched: 2 row(s)
+hive> select gender, round(avg(friendships_initiated),1) as avg_friendships_initiated from facebook_data group by gender order by avg_friendships_initiated desc;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521170257_3b42312d-c597-480a-9985-5ee23c6ed3e3
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0016, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0016/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0016
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 17:03:04,123 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 17:03:10,549 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.52 sec
+2024-05-21 17:03:16,984 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.27 sec
+MapReduce Total cumulative CPU time: 5 seconds 270 msec
+Ended Job = job_1716286996822_0016
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0017, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0017/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0017
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2024-05-21 17:03:29,369 Stage-2 map = 0%,  reduce = 0%
+2024-05-21 17:03:34,790 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.32 sec
+2024-05-21 17:03:41,190 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.29 sec
+MapReduce Total cumulative CPU time: 3 seconds 290 msec
+Ended Job = job_1716286996822_0017
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.27 sec   HDFS Read: 5227192 HDFS Write: 186 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.29 sec   HDFS Read: 5521 HDFS Write: 155 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 560 msec
+OK
+female	113.9
+male	103.1
+NA	92.6
+Time taken: 44.543 seconds, Fetched: 3 row(s)
+hive> with age_groups as (select userid, case when age between 13 and 25 then '13-25' when age between 26 and 35 then '26-35' when age between 36 and 50 then '36-50' end as age_group, mobile_likes, www_likes from facebook_data where age between 13 and 50)
+    > select age_group, sum(mobile_likes), sum(www_likes), round(sum(mobile_likes) / (sum(mobile_likes) + SUM(www_likes)),2), round(sum(www_likes) / (sum(mobile_likes) + sum(www_likes)),2) from age_groups group by age_group;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = ubh01_20240521171320_e06718a3-841c-419b-8195-b7c524dc1faa
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1716286996822_0020, Tracking URL = http://ubh01:8088/proxy/application_1716286996822_0020/
+Kill Command = /home/ubh01/hadoop-2.7.1/bin/hadoop job  -kill job_1716286996822_0020
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2024-05-21 17:13:27,643 Stage-1 map = 0%,  reduce = 0%
+2024-05-21 17:13:35,166 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.66 sec
+2024-05-21 17:13:42,654 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.29 sec
+MapReduce Total cumulative CPU time: 7 seconds 290 msec
+Ended Job = job_1716286996822_0020
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.29 sec   HDFS Read: 5231567 HDFS Write: 215 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 290 msec
+OK
+13-25	5248117	2349153	0.69	0.31
+26-35	1657314	407772	0.8	0.2
+36-50	1439898	520547	0.73	0.27
+Time taken: 23.282 seconds, Fetched: 3 row(s)
+hive> 
