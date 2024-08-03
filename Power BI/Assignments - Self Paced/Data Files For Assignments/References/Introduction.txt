@@ -1,0 +1,21 @@
+Software as a Service
+We are now in the time of fully matured cloud applications. Most of the organization are preferring to work and store data on cloud application than ever before.  Considering ease of access, cross location collaboration, zero infra maintenance and over all reduced IT costs. Software as a Service – SaaS applications like Salesforce, Gooddata, Redshift, Zoho etc. are widely used. Power BI, as a cloud platform by itself at hart, has excellent support for all this platforms. One can quickly get data and start building analytics with a subscription to any of this apps. 
+
+Along with the connectivity to cloud applications, Power BI has option to work on on-premises databases or cubes. Without moving enterprise data to cloud,   one can create dashboards to leverage on data coming from both cloud and on-premises.
+
+Power BI Visualizations framework is open sourced. A lot of new visualizations are being contributed by open community. One can very easily download any of these custom visualizations and plug them into their dashboards.
+
+Sharing analysis is effortless in Power BI. There are many ways in which one can share analytics. Users can directly login to Power BI Cloud service and browse intended reports. We can also share an URL of the analysis file on internet and anyone that that link and view our reports. The other way is we can directly integrate our analysis into any external applications or already existing reporting platforms and embedded copies.
+
+In-Memory Engine,
+----------------
+ old BI reporting tools used to relay on cache as 32 bit operating systems support at max 4GB RAM. To show a report to end user a SQL query has to fire to get data residing on disk. Now for every action of end user on the report subsequent queries has to fire and get data from disk. This involves multiple Input Output IO operations which are very expensive. 
+After the advent of 64 bit operating systems RAM support was extended up to 1TB. Now this opened all together new set of possibilities to BI world. Entire data warehouse can be brought into RAM. In-Memory analytical tool are brought into market. Spotfire is one amount Quick View, Tableu, etc. Micro Strategy brought PRIME, SAP brought HANA keeping BO aside, and Microsoft brought PowerView without mixing in MSBI.
+In this architecture, at the time of initial loading of Visualizations almost all the related data is brought into RAM. Though this puts a lag in initial loading the after benefits are great. Getting data from RAM is always fast and easy. So for every need of end user (like I want view sales by year may be by year and region. Later by profits, I may want to find highly performing branches to set benchmarks.) What so ever be the need of end user, there is no need to get to disk. Hence as stressed earlier our Spotfire visualizations are fast to render and provides smooth interaction among visualizations
+
+
+
+
+
+
+

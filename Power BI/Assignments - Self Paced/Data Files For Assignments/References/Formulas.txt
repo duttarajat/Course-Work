@@ -1,0 +1,17 @@
+SourceMonth = FORMAT(Trips[ShipDate],"mmmm")
+
+DeliveryStatus = if(ISBLANK(Trips[DeliveryDate]),"Undelivered",if(Trips[DeliveryDays]-Trips[ShipDays]=0,"OnTime",if(Trips[DeliveryDays]-Trips[ShipDays]<0,"Early","Late")))
+
+On Time Deliveries 
+COUNTAX(FILTER(Trips,Trips[DeliveryStatus]="OnTime"),Trips[LoadedMiles])/COUNT(Trips[LoadedMiles])*100
+
+
+Binned As Measure
+ShipDaysCat = CALCULATE(COUNTROWS(FILTER(Trips, AND(Trips[ShipDays]>=Min(ShipDaysBuckets[MinDays]),Trips[ShipDays]<=Max(ShipDaysBuckets[MaxDays])))))
+
+Binned As Column
+ShipDaysBin = VAR SD=Trips[ShipDays] RETURN CALCULATE(VALUES(ShipDaysBuckets[ShipDaysBkt]),SD>=ShipDaysBuckets[MinDays],SD<=ShipDaysBuckets[MaxDays])
+
+=IF(Q2="Early",E2+H2-RANDBETWEEN(1,3),IF(Q2="OnTime",E2+H2,IF(Q2="Late",E2+H2+RANDBETWEEN(1,3))))
+
+
